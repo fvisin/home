@@ -143,6 +143,6 @@ WHITE='\[\e[0;37m\]'        # White
 
 # format bash
 RESET=${WHITE}
-PS1=${GREEN}'┌─────── \u@\h'${BLUE}' [\W]'${YELLOW}'$(__git_ps1 " (%s)")\n'${GREEN}'└─ λ '${RESET}
+PS1=${GREEN}'┌─────── \u@\h'${BLUE}' [\w]'${YELLOW}'$(__git_ps1 " (%s)")\n'${GREEN}'└─ λ '${RESET}
 # VIRTUAL_ENV_DISABLE_PROMPT=1 source ~/Enthought/Canopy_64bit/User/bin/activate
 
