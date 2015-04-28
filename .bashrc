@@ -244,19 +244,26 @@ uparctic() {
 PL() {
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PATH=$HOME'/exp/pylearn2/pylearn2/scripts':$PATH
-    #export PYTHONPATH=$HOME'/exp/pylearn2/pylearn2'
-    export PYTHONPATH=''
+    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages' 
+    export PYTHONPATH=$HOME'/exp/pylearn2/pylearn2':$PYTHONPATH
+    export PYTHONPATH=$HOME'/.miniconda/envs/pylearn2/lib/python2.7/site-packages/':$PYTHONPATH
+    #export PYTHONPATH=''
     source activate pylearn2
 }
 BL() {
     export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH=''
-    #export PYTHONPATH=$HOME'/exp/blocks/blocks'
+    export PYTHONPATH='~/.local/lib/python2.7/site-packages'
+    export PYTHONPATH=$HOME'/exp/blocks/blocks':$PYTHONPATH
+    export PYTHONPATH='~/.miniconda/envs/blocks/lib/python2.7/site-packages/':$PYTHONPATH
+    #export PYTHONPATH=''
     source activate blocks
 }
 AR() {
     export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH=''
+    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
+    export PYTHONPATH=$HOME'/exp/arctic':$PYTHONPATH
+    export PYTHONPATH='~/.miniconda/envs/arctic/lib/python2.7/site-packages/:'$PYTHONPATH
+    #export PYTHONPATH=''
     source activate arctic
 }
 CLR() {
