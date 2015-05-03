@@ -224,7 +224,7 @@ upblocks() {
     cd ~/exp/blocks
     git fetch blocks
     git rebase blocks/master master
-    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build -r 'https://raw.githubusercontent.com/bartvm/blocks/install_again/requirements.txt'
+    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build -r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
     cd $currdir
     rm -rf $TMP/build
 }
@@ -245,7 +245,7 @@ PL() {
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PATH=$HOME'/exp/pylearn2/pylearn2/scripts':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages' 
-    export PYTHONPATH=$HOME'/exp/pylearn2/pylearn2':$PYTHONPATH
+    # export PYTHONPATH=$HOME'/exp/pylearn2/pylearn2':$PYTHONPATH
     export PYTHONPATH=$HOME'/.miniconda/envs/pylearn2/lib/python2.7/site-packages/':$PYTHONPATH
     #export PYTHONPATH=''
     source activate pylearn2
@@ -253,7 +253,7 @@ PL() {
 BL() {
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH='~/.local/lib/python2.7/site-packages'
-    export PYTHONPATH=$HOME'/exp/blocks/blocks':$PYTHONPATH
+    # export PYTHONPATH=$HOME'/exp/blocks/blocks':$PYTHONPATH
     export PYTHONPATH='~/.miniconda/envs/blocks/lib/python2.7/site-packages/':$PYTHONPATH
     #export PYTHONPATH=''
     source activate blocks
@@ -261,7 +261,7 @@ BL() {
 AR() {
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    export PYTHONPATH=$HOME'/exp/arctic':$PYTHONPATH
+    # export PYTHONPATH=$HOME'/exp/arctic':$PYTHONPATH
     export PYTHONPATH='~/.miniconda/envs/arctic/lib/python2.7/site-packages/:'$PYTHONPATH
     #export PYTHONPATH=''
     source activate arctic
