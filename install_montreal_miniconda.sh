@@ -1,6 +1,6 @@
 #!/bin/bash          
 # Download latest miniconda http://conda.pydata.org/miniconda.html
-if [ -d "$HOME/.miniconda" ]; then
+if [ ! -d "$HOME/.miniconda" ]; then
     wget -nc http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
     echo "Go through the miniconda installation, install in ~/.miniconda and DO NOT prepend path"
     read -t 10 -p "Hit ENTER to continue or wait ten seconds" ;
