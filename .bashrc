@@ -224,7 +224,7 @@ upblocks() {
     cd ~/exp/blocks
     git fetch blocks
     git rebase blocks/master master
-    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build #-r https://raw.githubusercontent.com/bartvm/blocks/install_again/requirements.txt'
+    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build -r 'https://raw.githubusercontent.com/bartvm/blocks/install_again/requirements.txt'
     cd $currdir
     rm -rf $TMP/build
 }
