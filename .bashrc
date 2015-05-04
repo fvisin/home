@@ -164,10 +164,10 @@ export BIBINPUTS=.:$HOME/articles/bib:
 export BSTINPUTS=.:$HOME/articles/bst:
 export TEXINPUTS=.:$HOME/articles/sty:
 
-alias CPU='export THEANO_FLAGS=device=cpu,floatX=float3'$BLAS_FLAG
-alias CPU0='export THEANO_FLAGS=device=cpu0,floatX=float3'$BLAS_FLAG
-alias CPU1='export THEANO_FLAGS=device=cpu1,floatX=float3'$BLAS_FLAG
-alias CPU2='export THEANO_FLAGS=device=cpu2,floatX=float3'$BLAS_FLAG
+alias CPU='export THEANO_FLAGS=device=cpu,floatX=float32'$BLAS_FLAG
+alias CPU0='export THEANO_FLAGS=device=cpu0,floatX=float32'$BLAS_FLAG
+alias CPU1='export THEANO_FLAGS=device=cpu1,floatX=float32'$BLAS_FLAG
+alias CPU2='export THEANO_FLAGS=device=cpu2,floatX=float32'$BLAS_FLAG
 alias GPU='export THEANO_FLAGS=device=gpu,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
 alias GPU0='export THEANO_FLAGS=device=gpu0,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
 alias GPU1='export THEANO_FLAGS=device=gpu1,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
@@ -224,7 +224,7 @@ upblocks() {
     cd ~/exp/blocks
     git fetch blocks
     git rebase blocks/master master
-    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build -r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
+    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build #-r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
     cd $currdir
     rm -rf $TMP/build
 }
@@ -267,7 +267,9 @@ AR() {
     source activate arctic
 }
 CLR() {
-    source ~/.miniconda/bin/deactivate 
+    if [ ! -z $CONDA_DEFAULT_ENV ]; then
+        source ~/.miniconda/bin/deactivate 
+    fi
     export THEANO_FLAGS=$THEANO_FLAGS_INIT
     export PYTHONPATH=$PYTHONPATH_INIT
     export PATH=$PATH_INIT
