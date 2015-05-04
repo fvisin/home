@@ -1,4 +1,13 @@
 #!/bin/bash          
+
+INSTALL_BLOCKS=1
+INSTALL_PYLEARN2=1
+INSTALL_ARCTIC=1
+
+echo "NOTE: to avoid compilation errors, you might need to install libhdf5-dev."
+read -t 10 -p "Hit ENTER to continue or wait ten seconds" ;
+
+export PYTHONPATH=""
 # Download latest miniconda http://conda.pydata.org/miniconda.html
 if [ ! -d "$HOME/.miniconda" ]; then
     wget -nc http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
@@ -9,81 +18,99 @@ if [ ! -d "$HOME/.miniconda" ]; then
     rm Miniconda-latest-Linux-x86_64.sh
 fi
 
-# install requirements ---> non ha senso farlo in root perché non è condiviso
-#conda install -y pip mkl numpy=1.8.1 scipy pil matplotlib pytables
-# in the lab numpy and scipy are optimized
-#conda install -y pip pil matplotlib pytables python
-
+# Rename .local if existing
 if [ -d "$HOME/.local" ]; then
-    read -t 10 -p "The $HOME/.local directory will be renamed to '.local_old_by_autoinstall_script'. Press ENTER to continue."
-    mv "$HOME/.local" "$HOME/.local_old_by_autoinstall_script"
+    read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/n] " response
+    case $response in
+    [yY][eE][sS]|[yY]) 
+        mv "$HOME/.local" "$HOME/.local_old_by_autoinstall_script"
+        ;;
+    *)
+        ;;
+    esac
 fi
 
-
-# install blocks
+# Install blocks
 # --------------
-echo "Installing blocks ..."
-CLR
-BL
-conda create -y -n blocks python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose progressbar bokeh
-BL
-read -r -p "Do you want to install mkl? [y/N] " response
-case $response in
+if [ $INSTALL_BLOCKS -eq 1 ]; then
+    echo "Installing blocks ..."
+    CLR
+    export PATH=$HOME'/.miniconda/bin':$PATH
+    export PYTHONPATH='~./local/lib/python2.7/site-packages'
+    source activate blocks
+    conda create -y -n blocks python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose progressbar bokeh
+    source activate blocks
+    read -r -p "Do you want to install mkl? [y/n] " response
+    case $response in
     [yY][eE][sS]|[yY]) 
-        conda install mkl
+        conda install -y mkl
         ;;
     *)
-        conda install atlas
+        conda install -y atlas
         ;;
-esac
-conda install -y pydot numpy scipy
-uptheano
-upblocks
-cd ~/exp/fuel
-python setup.py develop
-cd ~/exp/blocks
-python setup.py develop
+    esac
+    conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml=3.11 
+    pip install progressbar2==2.7.3 toolz==0.7.1 --upgrade
+    pip install ipdb pycuda
+    pip install --user --upgrade --no-deps -e 'git+https://github.com/dwf/picklable_itertools.git#egg=picklable-itertools' -b $TMP/build
+    rm -rf $TMP/build
+    pip install --user --upgrade --no-deps -e 'git+https://github.com/bartvm/fuel#egg=fuel' -b $TMP/build
+    rm -rf $TMP/build
+    uptheano
+    upblocks
+    cd ~/exp/fuel
+    python setup.py develop
+    cd ~/exp/blocks
+    python setup.py develop
+fi
 
-
-# install pylearn2
+# Install pylearn2
 # ----------------
-echo "Installing pylearn2 ..."
-CLR
-PL
-conda create -y -n pylearn2 python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose 
-PL
-read -r -p "Do you want to install mkl? [y/N] " response
-case $response in
-    [yY][eE][sS]|[yY]) 
-        conda install mkl
-        ;;
-    *)
-        conda install atlas
-        ;;
-esac
-conda install -y pydot numpy=1.8.1 scipy
-uptheano
-cd ~/exp
-git clone git@github.com:fvisin/pylearn2.git
-cd pylearn2
-python setup.py develop
+if [ $INSTALL_PYLEARN2 -eq 1 ]; then
+    echo "Installing pylearn2 ..."
+    CLR
+    export PATH=$HOME'/.miniconda/bin':$PATH
+    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
+    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose 
+    export PATH=$HOME'/.miniconda/bin':$PATH
+    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
+    source activate pylearn2
+    read -r -p "Do you want to install mkl? [y/n] " response
+    case $response in
+        [yY][eE][sS]|[yY]) 
+            conda install -y mkl
+            ;;
+        *)
+            conda install -y atlas
+            ;;
+    esac
+    conda install -y pydot numpy=1.8.1 scipy
+    pip install ipdb pycuda
+    uptheano
+    cd ~/exp
+    git clone git@github.com:fvisin/pylearn2.git
+    cd pylearn2
+    python setup.py develop
+fi
 
-
-# install arctic
-CLR
-AR
-conda create -y -n arctic python ipython pip pil pytables hdf5 cython nose 
-AR
-read -r -p "Do you want to install mkl? [y/N] " response
-case $response in
-    [yY][eE][sS]|[yY]) 
-        conda installuu mkl
-        ;;
-    *)
-        conda install atlas
-        ;;
-esac
-conda install -y pydot numpy scipy
-pip install ipdb pycuda
-uptheano
-
+# Install arctic
+if [ $INSTALL_PYLEARN2 -eq 1 ]; then
+    echo "Installing arctic ..."
+    CLR
+    export PATH=$HOME'/.miniconda/bin':$PATH
+    conda create -y -n arctic python ipython pip pil pytables hdf5 cython nose 
+    export PATH=$HOME'/.miniconda/bin':$PATH
+    source activate arctic
+    read -r -p "Do you want to install mkl? [y/n] " response
+    case $response in
+        [yY][eE][sS]|[yY]) 
+            conda install -y mkl
+            ;;
+        *)
+            conda install -y atlas
+            ;;
+    esac
+    conda install -y pydot numpy scipy
+    pip install ipdb pycuda
+    uptheano
+fi
