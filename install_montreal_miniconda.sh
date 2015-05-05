@@ -1,12 +1,11 @@
 #!/bin/bash          
 
 INSTALL_BLOCKS=1
-INSTALL_PYLEARN2=0
-INSTALL_ARCTIC=0
+INSTALL_PYLEARN2=1
+INSTALL_ARCTIC=1
 INSTALL_MKL=1
 
-echo "NOTE: to avoid compilation errors, you might need to install libhdf5-dev."
-read -t 10 -p "Hit ENTER to continue or wait ten seconds" ;
+read -t 10 -p "NOTE: to avoid compilation errors, you might need to install libhdf5-dev." ;
 
 export PYTHONPATH=""
 # Download latest miniconda http://conda.pydata.org/miniconda.html
@@ -43,7 +42,7 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
     export PYTHONPATH='~./local/lib/python2.7/site-packages'
     conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh
     source activate blocks
-    if [ ! -z $INSTALL_MKL ]; then
+    if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
     else
         response=$INSTALL_MKL
@@ -83,7 +82,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
     conda create -y -n pylearn2 python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose 
     source activate pylearn2
-    if [ ! -z $INSTALL_MKL ]; then
+    if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
     else
         response=$INSTALL_MKL
@@ -115,7 +114,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
     export PATH=$HOME'/.miniconda/bin':$PATH
     conda create -y -n arctic python ipython pip pil pytables h5py hdf5 cython nose 
     source activate arctic
-    if [ ! -z $INSTALL_MKL ]; then
+    if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
     else
         response=$INSTALL_MKL
