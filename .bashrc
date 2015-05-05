@@ -191,8 +191,6 @@ export THEANO_FLAGS_INIT=$THEANO_FLAGS
 # PYLEARN2
 #==========
 #export PYLEARN2_VIEWER_COMMAND="eog --new-instance"
-export PYLEARN2_DATA_PATH='/home/francesco/exp/datasets'
-export PYLEARN2_DATA_PATH='/data/lisa/data'
 export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'	# better pickle compression
 
 # UPGRADES
