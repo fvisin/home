@@ -1,8 +1,9 @@
 #!/bin/bash          
 
 INSTALL_BLOCKS=1
-INSTALL_PYLEARN2=1
-INSTALL_ARCTIC=1
+INSTALL_PYLEARN2=0
+INSTALL_ARCTIC=0
+INSTALL_MKL=1
 
 echo "NOTE: to avoid compilation errors, you might need to install libhdf5-dev."
 read -t 10 -p "Hit ENTER to continue or wait ten seconds" ;
@@ -20,7 +21,7 @@ fi
 
 # Rename .local if existing
 if [ -d "$HOME/.local" ]; then
-    read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/n] " response
+    read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/N] " response
     case $response in
     [yY][eE][sS]|[yY]) 
         mv "$HOME/.local" "$HOME/.local_old_by_autoinstall_script"
@@ -33,21 +34,27 @@ fi
 # Install blocks
 # --------------
 if [ $INSTALL_BLOCKS -eq 1 ]; then
-    echo "Installing blocks ..."
+    echo; echo; echo;
+    echo "-----------------"
+    echo "Installing blocks"
+    echo "-----------------"
     CLR
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH='~./local/lib/python2.7/site-packages'
+    conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh
     source activate blocks
-    conda create -y -n blocks python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose progressbar bokeh
-    source activate blocks
-    read -r -p "Do you want to install mkl? [y/n] " response
+    if [ ! -z $INSTALL_MKL ]; then
+        read -r -p "Do you want to install mkl? [y/N] " response
+    else
+        response=$INSTALL_MKL
+    fi 
     case $response in
-    [yY][eE][sS]|[yY]) 
-        conda install -y mkl
-        ;;
-    *)
-        conda install -y atlas
-        ;;
+        [yY][eE][sS]|[yY]|[1]) 
+            conda install -y mkl
+            ;;
+        *)
+            conda install -y atlas
+            ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml=3.11 
     pip install progressbar2==2.7.3 toolz==0.7.1 --upgrade
@@ -67,17 +74,22 @@ fi
 # Install pylearn2
 # ----------------
 if [ $INSTALL_PYLEARN2 -eq 1 ]; then
-    echo "Installing pylearn2 ..."
+    echo; echo; echo;
+    echo "-------------------"
+    echo "Installing pylearn2"
+    echo "-------------------"
     CLR
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables hdf5 cython pyyaml nose 
-    export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
+    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose 
     source activate pylearn2
-    read -r -p "Do you want to install mkl? [y/n] " response
+    if [ ! -z $INSTALL_MKL ]; then
+        read -r -p "Do you want to install mkl? [y/N] " response
+    else
+        response=$INSTALL_MKL
+    fi 
     case $response in
-        [yY][eE][sS]|[yY]) 
+        [yY][eE][sS]|[yY]|[1]) 
             conda install -y mkl
             ;;
         *)
@@ -95,15 +107,21 @@ fi
 
 # Install arctic
 if [ $INSTALL_PYLEARN2 -eq 1 ]; then
-    echo "Installing arctic ..."
+    echo; echo; echo;
+    echo "-----------------"
+    echo "Installing arctic"
+    echo "-----------------"
     CLR
     export PATH=$HOME'/.miniconda/bin':$PATH
-    conda create -y -n arctic python ipython pip pil pytables hdf5 cython nose 
-    export PATH=$HOME'/.miniconda/bin':$PATH
+    conda create -y -n arctic python ipython pip pil pytables h5py hdf5 cython nose 
     source activate arctic
-    read -r -p "Do you want to install mkl? [y/n] " response
+    if [ ! -z $INSTALL_MKL ]; then
+        read -r -p "Do you want to install mkl? [y/N] " response
+    else
+        response=$INSTALL_MKL
+    fi 
     case $response in
-        [yY][eE][sS]|[yY]) 
+        [yY][eE][sS]|[yY]|[1]) 
             conda install -y mkl
             ;;
         *)
