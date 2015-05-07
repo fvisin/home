@@ -115,11 +115,11 @@ if [ `hostname` == 'fraptop' ]; then
     # CUDA
     #export PATH=/usr/lib/nvidia-cuda-toolkit:$PATH
     #export LD_LIBRARY_PATH=/usr/lib/nvidia-cuda-toolkit/lib:$LD_LIBRARY_PATH
-    export CUDA_ROOT=/usr/lib/nvidia-cuda-toolkit
+    #export CUDA_ROOT=/usr/lib/nvidia-cuda-toolkit
     # CUDA ALTERNATIVES
-    #export PATH=/usr/local/cuda/bin:$PATH
-    #export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
-    #export CUDA_ROOT=/usr/local/cuda/bin
+    export PATH=/usr/local/cuda/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
+    export CUDA_ROOT=/usr/local/cuda/bin
    
     # Set TMP
     export TMP='/tmp'
