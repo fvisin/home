@@ -30,6 +30,24 @@ if [ -d "$HOME/.local" ]; then
     esac
 fi
 
+# pylint
+# read -r -p "Do you want to install pylint in .local? [y/N]" response 
+#     case $response in
+#     [yY][eE][sS]|[yY]) 
+#         cd "$HOME/.local"
+#         hg clone https://bitbucket.org/logilab/pylint/
+#         hg clone https://bitbucket.org/logilab/astroid
+#         mkdir logilab && touch logilab/__init__.py
+#         hg clone http://hg.logilab.org/logilab/common logilab/common
+#         cd pylint && python setup.py install --user
+#         ;;
+#     *)
+#         ;;
+#     esac
+
+echo "Installing flake8 ..."
+pip install flake8 --user
+
 # Install blocks
 # --------------
 if [ $INSTALL_BLOCKS -eq 1 ]; then
