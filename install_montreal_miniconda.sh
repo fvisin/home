@@ -123,7 +123,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
 fi
 
 # Install arctic
-if [ $INSTALL_PYLEARN2 -eq 1 ]; then
+if [ $INSTALL_ARCTIC -eq 1 ]; then
     echo; echo; echo;
     echo "-----------------"
     echo "Installing arctic"
