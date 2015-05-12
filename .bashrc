@@ -143,7 +143,8 @@ else
     #umask 027
 
     # Set BLAS_FLAG
-    export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
+    # export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
+    export BLAS_FLAG=''
 
     # PATHS
     export PYLEARN2_DATA_PATH='/data/lisa/data'
