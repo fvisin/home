@@ -20,9 +20,9 @@ allow_gc = false
 #compute_test_value = off
 
 # Use full names
-exception_verbosity = high
+# exception_verbosity = high
 
 
-[traceback]
-limit = -1
+# [traceback]
+# limit = -1
 
