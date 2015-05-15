@@ -245,6 +245,7 @@ uparctic() {
 # ENVIRONMENTS
 # =============
 PL() {
+    export VIRTUAL_ENV=$HOME'/.miniconda/envs/pylearn2' 
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PATH=$HOME'/exp/pylearn2/pylearn2/scripts':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages' 
@@ -254,6 +255,7 @@ PL() {
     source activate pylearn2
 }
 BL() {
+    export VIRTUAL_ENV=$HOME'/.miniconda/envs/blocks' 
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH='~/.local/lib/python2.7/site-packages'
     # export PYTHONPATH=$HOME'/exp/blocks/blocks':$PYTHONPATH
@@ -262,6 +264,7 @@ BL() {
     source activate blocks
 }
 AR() {
+    export VIRTUAL_ENV=$HOME'/.miniconda/envs/arctic' 
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
     # export PYTHONPATH=$HOME'/exp/arctic':$PYTHONPATH
