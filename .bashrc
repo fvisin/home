@@ -138,7 +138,7 @@ else
     . ~/.profile
 
     if [ -e "/opt/lisa/os_v3/.local.bashrc" ];
-      then source /opt/lisa/os_v3/.local.bashrc; 
+      then source "/opt/lisa/os_v3/.local.bashrc";
     fi
     #umask 027
 
@@ -183,15 +183,15 @@ alias PROFILE='export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS=proﬁle_memory
 
 # PATHS
 #=======
-export PYTHONPATH=~/.local/lib/python2.7/site-packages/:$PYTHONPATH
-export PATH=~/.local/bin/:$PATH
-export PYTHONPATH_INIT=$PYTHONPATH
-export PATH_INIT=$PATH
+export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages/:$PYTHONPATH"
+export PATH="$HOME/.local_extra/bin/:$HOME/lib/:$PATH"
+export PYTHONPATH_INIT="$PYTHONPATH"
+export PATH_INIT="$PATH"
 
 # THEANO AND PYLEARN2
 #=====================
-export THEANO_FLAGS='floatX=float32,scan.allow_gc=False'$BLAS_FLAG
-export THEANO_FLAGS_INIT=$THEANO_FLAGS
+export THEANO_FLAGS="floatX=float32,scan.allow_gc=False$BLAS_FLAG"
+export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 
 # PYLEARN2
 #==========
@@ -210,7 +210,7 @@ upblocks() {
     BL
     currdir=`pwd`
     if [ ! -d ~/exp/fuel ]; then
-        cd $HOME'/exp'
+        cd "$HOME/exp"
         git clone git@github.com:fvisin/fuel.git
         cd fuel
         git remote add fuel git@github.com:bartvm/fuel.git
@@ -219,7 +219,7 @@ upblocks() {
     git fetch fuel
     git rebase fuel/master master
     if [ ! -d ~/exp/blocks ]; then
-        cd $HOME'/exp'
+        cd "$HOME/exp"
         git clone git@github.com:fvisin/blocks.git
         cd blocks
         git remote add blocks git@github.com:bartvm/blocks.git
@@ -245,30 +245,30 @@ uparctic() {
 # ENVIRONMENTS
 # =============
 PL() {
-    export VIRTUAL_ENV=$HOME'/.miniconda/envs/pylearn2' 
-    export PATH=$HOME'/.miniconda/bin':$PATH
-    export PATH=$HOME'/exp/pylearn2/pylearn2/scripts':$PATH
-    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages' 
-    # export PYTHONPATH=$HOME'/exp/pylearn2/pylearn2':$PYTHONPATH
-    export PYTHONPATH=$HOME'/.miniconda/envs/pylearn2/lib/python2.7/site-packages/':$PYTHONPATH
+    export VIRTUAL_ENV="$HOME/.miniconda/envs/pylearn2"
+    export PATH="$HOME/.miniconda/bin:$PATH"
+    export PATH="$HOME/exp/pylearn2/pylearn2/scripts:$PATH"
+    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
+    # export PYTHONPATH="$HOME/exp/pylearn2/pylearn2:$PYTHONPATH"
+    export PYTHONPATH="$HOME/.miniconda/envs/pylearn2/lib/python2.7/site-packages/:$PYTHONPATH"
     #export PYTHONPATH=''
     source activate pylearn2
 }
 BL() {
-    export VIRTUAL_ENV=$HOME'/.miniconda/envs/blocks' 
-    export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH='~/.local/lib/python2.7/site-packages'
-    # export PYTHONPATH=$HOME'/exp/blocks/blocks':$PYTHONPATH
-    export PYTHONPATH='~/.miniconda/envs/blocks/lib/python2.7/site-packages/':$PYTHONPATH
+    export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
+    export PATH="$HOME/.miniconda/bin:$PATH"
+    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
+    # export PYTHONPATH="$HOME/exp/blocks/blocks:$PYTHONPATH"
+    export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
     #export PYTHONPATH=''
     source activate blocks
 }
 AR() {
-    export VIRTUAL_ENV=$HOME'/.miniconda/envs/arctic' 
-    export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    # export PYTHONPATH=$HOME'/exp/arctic':$PYTHONPATH
-    export PYTHONPATH='~/.miniconda/envs/arctic/lib/python2.7/site-packages/:'$PYTHONPATH
+    export VIRTUAL_ENV="$HOME/.miniconda/envs/arctic"
+    export PATH="$HOME/.miniconda/bin:$PATH"
+    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
+    # export PYTHONPATH="$HOME/exp/arctic:$PYTHONPATH"
+    export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
     #export PYTHONPATH=''
     source activate arctic
 }
@@ -276,9 +276,9 @@ CLR() {
     if [ ! -z $CONDA_DEFAULT_ENV ]; then
         source ~/.miniconda/bin/deactivate 
     fi
-    export THEANO_FLAGS=$THEANO_FLAGS_INIT
-    export PYTHONPATH=$PYTHONPATH_INIT
-    export PATH=$PATH_INIT
+    export THEANO_FLAGS="$THEANO_FLAGS_INIT"
+    export PYTHONPATH="$PYTHONPATH_INIT"
+    export PATH="$PATH_INIT"
 }
 
 export -f uptheano
@@ -292,7 +292,6 @@ export -f CLR
 # OTHERS
 #========
 export EDITOR=vim
-export PATH=$HOME'/.local/bin':$PATH
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
 
 # disk usage
