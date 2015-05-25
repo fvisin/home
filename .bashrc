@@ -183,8 +183,8 @@ alias PROFILE='export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS=proﬁle_memory
 
 # PATHS
 #=======
-export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages/:$PYTHONPATH"
-export PATH="$HOME/.local_extra/bin/:$HOME/lib/:$PATH"
+#export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages/:$PYTHONPATH"
+#export PATH="$HOME/.local_extra/bin/:$HOME/lib/:$PATH"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
@@ -248,28 +248,25 @@ PL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/pylearn2"
     export PATH="$HOME/.miniconda/bin:$PATH"
     export PATH="$HOME/exp/pylearn2/pylearn2/scripts:$PATH"
-    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    # export PYTHONPATH="$HOME/exp/pylearn2/pylearn2:$PYTHONPATH"
+    export PATH="$HOME/.local_extra/bin:$PATH"
+    export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/pylearn2/lib/python2.7/site-packages/:$PYTHONPATH"
-    #export PYTHONPATH=''
     source activate pylearn2
 }
 BL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    # export PYTHONPATH="$HOME/exp/blocks/blocks:$PYTHONPATH"
+    export PATH="$HOME/.local_extra/bin:$PATH"
+    export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
-    #export PYTHONPATH=''
     source activate blocks
 }
 AR() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/arctic"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    # export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    # export PYTHONPATH="$HOME/exp/arctic:$PYTHONPATH"
+    export PATH="$HOME/.local_extra/bin:$PATH"
+    export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
-    #export PYTHONPATH=''
     source activate arctic
 }
 CLR() {

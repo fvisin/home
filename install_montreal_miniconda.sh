@@ -19,16 +19,16 @@ if [ ! -d "$HOME/.miniconda" ]; then
 fi
 
 # Rename .local if existing
-if [ -d "$HOME/.local" ]; then
-    read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/N] " response
-    case $response in
-    [yY][eE][sS]|[yY]) 
-        mv "$HOME/.local" "$HOME/.local_old_by_autoinstall_script"
-        ;;
-    *)
-        ;;
-    esac
-fi
+# if [ -d "$HOME/.local" ]; then
+#     read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/N] " response
+#     case $response in
+#     [yY][eE][sS]|[yY]) 
+#         mv "$HOME/.local" "$HOME/.local_old_by_autoinstall_script"
+#         ;;
+#     *)
+#         ;;
+#     esac
+# fi
 
 # pylint
 # read -r -p "Do you want to install pylint in .local? [y/N]" response 
@@ -45,8 +45,9 @@ fi
 #         ;;
 #     esac
 
+# Install flake8 in .local (shared)
 echo "Installing flake8 ..."
-pip install flake8 --user
+pip install flake8 --user --upgrade
 
 # Install blocks
 # --------------
@@ -56,8 +57,8 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
     echo "Installing blocks"
     echo "-----------------"
     CLR
-    export PATH=$HOME'/.miniconda/bin':$PATH
-    export PYTHONPATH='~./local/lib/python2.7/site-packages'
+    export PATH="$HOME/.miniconda/bin":$PATH
+    export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh
     source activate blocks
     if [ -z $INSTALL_MKL ]; then
@@ -74,11 +75,10 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml=3.11 
-    pip install progressbar2==2.7.3 toolz==0.7.1 --upgrade
-    pip install ipdb pycuda
-    pip install --user --upgrade --no-deps -e 'git+https://github.com/dwf/picklable_itertools.git#egg=picklable-itertools' -b $TMP/build
+    pip install --upgrade toolz==0.7.1 ipdb pycuda 
+    pip install --upgrade --no-deps -e 'git+https://github.com/dwf/picklable_itertools.git#egg=picklable-itertools' -b $TMP/build
     rm -rf $TMP/build
-    pip install --user --upgrade --no-deps -e 'git+https://github.com/bartvm/fuel#egg=fuel' -b $TMP/build
+    pip install --upgrade --no-deps -e 'git+https://github.com/bartvm/fuel#egg=fuel' -b $TMP/build
     rm -rf $TMP/build
     uptheano
     upblocks
@@ -114,7 +114,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.8.1 scipy
-    pip install ipdb pycuda
+    pip install --upgrade ipdb pycuda
     uptheano
     cd ~/exp
     git clone git@github.com:fvisin/pylearn2.git
@@ -146,7 +146,7 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy scipy
-    pip install ipdb pycuda
+    pip install --upgrade ipdb pycuda
     # installa a mano pycuda
     # wget https://pypi.python.org/packages/source/p/pycuda/pycuda-2014.1.tar.gz
     # tar xfz pycuda-2014.1.tar.gz
