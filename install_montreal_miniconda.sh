@@ -45,10 +45,6 @@ fi
 #         ;;
 #     esac
 
-# Install flake8 in .local (shared)
-echo "Installing flake8 ..."
-pip install flake8 --user --upgrade
-
 # Install blocks
 # --------------
 if [ $INSTALL_BLOCKS -eq 1 ]; then
