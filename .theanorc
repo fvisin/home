@@ -4,7 +4,7 @@ device = cpu
 floatX = float32
 
 # Disable the garbage collector for intermediate results: faster but uses more memory
-allow_gc = false
+# allow_gc = False
 
 #### DEBUGGING ####
 # Do not optimize to ease debugging
@@ -25,4 +25,9 @@ allow_gc = false
 
 # [traceback]
 # limit = -1
+
+[lib]
+# Faster CUDA memory allocator
+#cnmem = 1
+
 
