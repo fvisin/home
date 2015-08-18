@@ -180,6 +180,7 @@ alias GPU='export THEANO_FLAGS=device=gpu,floatX=float32,scan.allow_gc=False'$BL
 alias GPU0='export THEANO_FLAGS=device=gpu0,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
 alias GPU1='export THEANO_FLAGS=device=gpu1,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
 alias GPU2='export THEANO_FLAGS=device=gpu2,floatX=float32,scan.allow_gc=False'$BLAS_FLAG
+alias GPU0SLOW='export THEANO_FLAGS=device=gpu0,floatX=float32'$BLAS_FLAG
 alias GPU1SLOW='export THEANO_FLAGS=device=gpu1,floatX=float32'$BLAS_FLAG
 alias GPU2SLOW='export THEANO_FLAGS=device=gpu2,floatX=float32'$BLAS_FLAG
 alias PROFILE='export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS=proﬁle_memory=True,profile=True,$THEANO_FLAGS'
