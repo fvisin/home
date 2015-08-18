@@ -151,6 +151,9 @@ else
     export BLOCKS_DATA_PATH='/data/lisa/data'
     export FUEL_DATA_PATH='/data/lisa/data'
 
+    # set browser for ipython notebook
+    export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
+
 fi
 
 # GIT AUTOCOMPLETE
