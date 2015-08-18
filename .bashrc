@@ -137,8 +137,8 @@ else
     ##### lab only profile
     . ~/.profile
 
-    if [ -e "/opt/lisa/os_v3/.local.bashrc" ];
-      then source "/opt/lisa/os_v3/.local.bashrc";
+    if [ -e "/opt/lisa/os_v4/.local.bashrc" ];
+      then source "/opt/lisa/os_v4/.local.bashrc";
     fi
     #umask 027
 
