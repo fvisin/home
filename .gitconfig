@@ -1,0 +1,19 @@
+    [user]
+	    name = fvisin
+    	email = fvisin@gmail.com
+
+    [alias]
+        lg1 = log --graph --author="fvisin" --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' 
+        lg2 = log --graph --author="fvisin" --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+        lg = !"git lg1"
+        co = checkout
+        rb = rebase
+
+    #[diff]
+    #    tool = kdiff3
+    #[difftool "kdiff3"]
+    #   path = /usr/bin/kdiff3 \"$LOCAL\" \"$REMOTE\" 
+    #   keepBackup = false
+    #   trustExitCode = false
+[color]
+	ui = true
