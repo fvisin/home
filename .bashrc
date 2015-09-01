@@ -99,7 +99,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-
 ######################################## FRA ####################################
 if [ `hostname` == 'fraptop' ]; then
     ##### laptop only profile
@@ -133,7 +132,33 @@ if [ `hostname` == 'fraptop' ]; then
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
 
+###################################### HELIOS ###################################
+elif [[ `hostname` == *"helios"* ]]; then
+    # Source global definitions
+    if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+    fi
+    source /rap/jvb-000-aa/local_v2/.local.bashrc
+    
+    # CLUMEQ
+    for i in /clumeq/etc/profile.d/*.sh ; do
+        if [ -r "$i" ]; then
+            . $i
+        fi
+    done
+
+    # User specific environment and startup programs
+    export PATH=$PATH:$HOME/bin
+    #export PATH=/software-gpu/cuda/7.0.28/bin:$PATH
+    #export LD_LIBRARY_PATH=/software-gpu/cuda/7.0.28/lib:$LD_LIBRARY_PATH
+    export CULA_ROOT="./cula17"
+    export CULA_INC_PATH="$CULA_ROOT/include"
+    export CULA_LIB_PATH_32="$CULA_ROOT/lib"
+    export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
+    export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
+    source ~/load_modules.sh
 else
+######################################## LAB ####################################
     ##### lab only profile
     . ~/.profile
 
@@ -156,6 +181,7 @@ else
 
 fi
 
+###################################### COMMON ###################################
 # GIT AUTOCOMPLETE
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
