@@ -99,6 +99,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 ######################################## FRA ####################################
 if [ `hostname` == 'fraptop' ]; then
     ##### laptop only profile
@@ -134,10 +139,6 @@ if [ `hostname` == 'fraptop' ]; then
 
 ###################################### HELIOS ###################################
 elif [[ `hostname` == *"helios"* ]]; then
-    # Source global definitions
-    if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-    fi
     source /rap/jvb-000-aa/local_v2/.local.bashrc
     
     # CLUMEQ
