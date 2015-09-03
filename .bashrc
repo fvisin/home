@@ -250,15 +250,16 @@ upblocks() {
     git fetch fuel
     git rebase fuel/master master
     if [ ! -d ~/exp/blocks ]; then
-        cd "$HOME/exp"
-        git clone git@github.com:fvisin/blocks.git
+        cd "$HOME"/exp
+        echo "Installing blocks for the first time..."
+        git clone git@github.com:fvisin/blocks.git 
         cd blocks
         git remote add blocks git@github.com:bartvm/blocks.git
     fi
     cd ~/exp/blocks
     git fetch blocks
     git rebase blocks/master master
-    pip install --user --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build #-r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
+    pip install --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build #-r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
     cd $currdir
     rm -rf $TMP/build
 }
