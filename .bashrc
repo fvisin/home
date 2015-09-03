@@ -233,7 +233,35 @@ export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'	# better pickle compre
 #==========
 # theano
 uptheano() {
-    pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
+    currdir=`pwd`
+    if [ -z ${VIRTUAL_ENV} ]; then
+        if [ ! -d $HOME/exp/theano/theano ]; then
+            echo "Installing theano for the first time..."
+            git clone git@github.com:fvisin/Theano.git $HOME/exp/theano/theano
+            cd $HOME/exp/theano/theano
+            git remote add theano git@github.com:Theano/Theano.git
+        else
+            echo "Upgrading theano..."
+        fi
+            cd $HOME/exp/theano/theano
+            git fetch theano
+            git rebase theano/master master
+    else
+        # export THEANO_PATH=$VIRTUAL_ENV/lib/python2.7/site-packages/theano
+        export THEANO_PATH=$HOME/exp/theano/$CONDA_DEFAULT_ENV/
+        if [ ! -d $THEANO_PATH ]; then
+            echo "Installing theano for the first time..."
+            git clone 'git@github.com:Theano/Theano.git' $THEANO_PATH
+            cd $THEANO_PATH
+            python setup.py develop
+        else
+            echo "Upgrading theano..."
+            cd $THEANO_PATH
+            git pull
+            pip install --upgrade --no-deps -e 'git+git@github.comTheano/Theano.git' --src=$THEANO_PATH -b $TMP/build 
+        fi
+    fi
+    cd $currdir
 }
 
 # blocks
@@ -308,6 +336,7 @@ CLR() {
     export THEANO_FLAGS="$THEANO_FLAGS_INIT"
     export PYTHONPATH="$PYTHONPATH_INIT"
     export PATH="$PATH_INIT"
+    export VIRTUAL_ENV=""
 }
 
 export -f uptheano
