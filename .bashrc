@@ -235,62 +235,70 @@ export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'	# better pickle compre
 # theano
 uptheano() {
     currdir=`pwd`
+    # normal
     if [ -z ${VIRTUAL_ENV} ]; then
         if [ ! -d $HOME/exp/theano/theano ]; then
             echo "Installing theano for the first time..."
             git clone git@github.com:fvisin/Theano.git $HOME/exp/theano/theano
             cd $HOME/exp/theano/theano
             git remote add theano git@github.com:Theano/Theano.git
+            python setup.py develop
         else
             echo "Upgrading theano..."
         fi
             cd $HOME/exp/theano/theano
             git fetch theano
             git rebase theano/master master
+    # virtual environment
     else
-        # export THEANO_PATH=$VIRTUAL_ENV/lib/python2.7/site-packages/theano
         export THEANO_PATH=$HOME/exp/theano/$CONDA_DEFAULT_ENV/
         if [ ! -d $THEANO_PATH ]; then
-            echo "Installing theano for the first time..."
+            echo "Installing theano for the first time in this environment..."
             git clone 'git@github.com:Theano/Theano.git' $THEANO_PATH
             cd $THEANO_PATH
             python setup.py develop
         else
-            echo "Upgrading theano..."
+            echo "Upgrading theano in this environment..."
             cd $THEANO_PATH
-            git pull
-            pip install --upgrade --no-deps -e 'git+git@github.comTheano/Theano.git' --src=$THEANO_PATH -b $TMP/build 
+            git pull origin
         fi
     fi
     cd $currdir
 }
 
-# blocks
+# fuel and blocks
 upblocks() {
     BL
     currdir=`pwd`
+    # fuel 
     if [ ! -d ~/exp/fuel ]; then
-        cd "$HOME/exp"
+        echo "Installing fuel for the first time..."
+        cd "$HOME"/exp
         git clone git@github.com:fvisin/fuel.git
         cd fuel
         git remote add fuel git@github.com:bartvm/fuel.git
     fi
+    # update
     cd ~/exp/fuel
     git fetch fuel
     git rebase fuel/master master
+    pip install -e file:.#egg=fuel[test,docs]
+    python setup.py build_ext --inplace  # rebuild cython
+
+    # blocks 
     if [ ! -d ~/exp/blocks ]; then
-        cd "$HOME"/exp
         echo "Installing blocks for the first time..."
+        cd "$HOME"/exp
         git clone git@github.com:fvisin/blocks.git 
         cd blocks
         git remote add blocks git@github.com:bartvm/blocks.git
     fi
+    # update
     cd ~/exp/blocks
     git fetch blocks
     git rebase blocks/master master
-    pip install --upgrade --no-deps -e 'git+git@github.com:fvisin/blocks.git#egg=blocks[test,plot,docs]' --src=$HOME/exp -b $TMP/build #-r 'https://raw.githubusercontent.com/bartvm/blocks/master/requirements.txt'
+    pip install -e file:.#egg=blocks[test,docs] -r requirements.txt
     cd $currdir
-    rm -rf $TMP/build
 }
 
 # arctic

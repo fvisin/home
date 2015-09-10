@@ -70,18 +70,14 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
             conda install -y atlas
             ;;
     esac
-    conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml=3.11 
-    pip install --upgrade toolz==0.7.1 ipdb pycuda 
-    pip install --upgrade --no-deps -e 'git+https://github.com/dwf/picklable_itertools.git#egg=picklable-itertools' -b $TMP/build
-    rm -rf $TMP/build
-    pip install --upgrade --no-deps -e 'git+https://github.com/bartvm/fuel#egg=fuel' -b $TMP/build
-    rm -rf $TMP/build
+    conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml 
+    pip install --upgrade ipdb pycuda
     uptheano
     upblocks
-    cd ~/exp/fuel
-    python setup.py develop
-    cd ~/exp/blocks
-    python setup.py develop
+    #cd ~/exp/fuel
+    #python setup.py develop
+    #cd ~/exp/blocks
+    #python setup.py develop
 fi
 
 # Install pylearn2
