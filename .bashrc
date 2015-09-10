@@ -136,6 +136,7 @@ if [ `hostname` == 'fraptop' ]; then
     export PYLEARN2_DATA_PATH='/home/francesco/exp/datasets'
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
+    export THEANORC=~/.theanorc
 
 ###################################### HELIOS ###################################
 elif [[ `hostname` == *"helios"* ]]; then
@@ -158,13 +159,14 @@ elif [[ `hostname` == *"helios"* ]]; then
     export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
     export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
     source ~/load_modules.sh
-else
+    export THEANORC=~/.theanorc
 ######################################## LAB ####################################
+else
     ##### lab only profile
     . ~/.profile
 
     if [ -e "/opt/lisa/os_v4/.local.bashrc" ];
-      then source "/opt/lisa/os_v4/.local.bashrc";
+      then source "/opt/lisa/os_v4/.local.bashrc"; 
     fi
     #umask 027
 
@@ -194,7 +196,6 @@ fi
 # Ctrl-D
 IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 
-export THEANORC=~/.theanorc
 export BIBINPUTS=.:$HOME/articles/bib:
 export BSTINPUTS=.:$HOME/articles/bst:
 export TEXINPUTS=.:$HOME/articles/sty:
