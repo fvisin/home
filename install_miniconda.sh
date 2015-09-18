@@ -1,8 +1,8 @@
 #!/bin/bash          
 
 INSTALL_BLOCKS=1
-INSTALL_PYLEARN2=1
-INSTALL_ARCTIC=1
+INSTALL_PYLEARN2=0
+INSTALL_ARCTIC=0
 INSTALL_MKL=1
 
 read -t 10 -p "NOTE: to avoid compilation errors, you might need to install libhdf5-dev." ;
@@ -55,7 +55,7 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
     CLR
     export PATH="$HOME/.miniconda/bin":$PATH
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc
+    conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc pydot
     source activate blocks
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -90,7 +90,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
     CLR
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc
+    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc matplotlib pydot
     source activate pylearn2
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -122,7 +122,7 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
     echo "-----------------"
     CLR
     export PATH=$HOME'/.miniconda/bin':$PATH
-    conda create -y -n arctic python ipython pip pil pytables h5py hdf5 cython nose numpydoc
+    conda create -y -n arctic python ipython pip pil pytables h5py hdf5 cython nose numpydoc matplotlib pydot
     source activate arctic
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
