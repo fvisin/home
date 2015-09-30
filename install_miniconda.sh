@@ -45,6 +45,9 @@ fi
 #         ;;
 #     esac
 
+# not environment specific plugins
+pip install --user pep257
+
 # Install blocks
 # --------------
 if [ $INSTALL_BLOCKS -eq 1 ]; then
