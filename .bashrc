@@ -217,12 +217,14 @@ alias PROFILE='export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS=proﬁle_memory
 #=======
 #export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages/:$PYTHONPATH"
 #export PATH="$HOME/.local_extra/bin/:$HOME/lib/:$PATH"
+export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
+export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
 # THEANO AND PYLEARN2
 #=====================
-export THEANO_FLAGS="floatX=float32,scan.allow_gc=False$BLAS_FLAG"
+export THEANO_FLAGS=$BLAS_FLAG
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 
 # PYLEARN2
@@ -320,6 +322,7 @@ PL() {
     export PATH="$HOME/.local_extra/bin:$PATH"
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/pylearn2/lib/python2.7/site-packages/:$PYTHONPATH"
+    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
     source activate pylearn2
 }
 BL() {
@@ -328,6 +331,7 @@ BL() {
     export PATH="$HOME/.local_extra/bin:$PATH"
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
+    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
     source activate blocks
 }
 AR() {
@@ -336,6 +340,7 @@ AR() {
     export PATH="$HOME/.local_extra/bin:$PATH"
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
     export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
+    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
     source activate arctic
 }
 CLR() {
