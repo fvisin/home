@@ -188,3 +188,10 @@ wiRouter_KeyRec_1.1.2/
 .vimrc
 .pylint.d/*
 .recently-used.xbel
+.history
+.directory
+.pgpass
+.python-eggs*
+.texlive2007*
+.xsession-errors*
+
