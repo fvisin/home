@@ -163,7 +163,10 @@ elif [[ `hostname` == *"helios"* ]]; then
 ######################################## LAB ####################################
 else
     ##### lab only profile
-    . ~/.profile
+    if [ -e "~/.profile" ];
+      then . ~/.profile
+    fi
+        
 
     if [ -e "/opt/lisa/os_v4/.local.bashrc" ];
       then source "/opt/lisa/os_v4/.local.bashrc"; 
