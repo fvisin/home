@@ -1,8 +1,8 @@
 #!/bin/bash          
 
-INSTALL_BLOCKS=1
+INSTALL_BLOCKS=0
 INSTALL_PYLEARN2=0
-INSTALL_ARCTIC=0
+INSTALL_ARCTIC=1
 INSTALL_MKL=1
 
 read -t 10 -p "NOTE: to avoid compilation errors, you might need to install libhdf5-dev." ;
