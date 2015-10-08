@@ -18,6 +18,13 @@ if [ ! -d "$HOME/.miniconda" ]; then
     rm Miniconda-latest-Linux-x86_64.sh
 fi
 
+# Verify pip installation
+pip -v >/dev/null 2>&1 || { 
+    echo "pip is missing, I will try to install it"
+    sudo apt-get install python-pip 
+}
+
+
 # Rename .local if existing
 # if [ -d "$HOME/.local" ]; then
 #     read -r -p "$HOME/.local is not empty. This could lead to library compatibility problems. Do you want it to be renamed to '.local_old_by_autoinstall_script'? [y/N] " response
