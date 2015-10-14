@@ -13,11 +13,11 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=2000
+HISTFILESIZE=5000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# Catch terminal window resizes properly: check the window size after each 
+# command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
@@ -104,9 +104,8 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-######################################## FRA ####################################
+################################### LAPTOP ####################################
 if [ `hostname` == 'fraptop' ]; then
-    ##### laptop only profile
 
     # enable bash completion in interactive shells
     if ! shopt -oq posix; then
@@ -118,10 +117,6 @@ if [ `hostname` == 'fraptop' ]; then
     fi
  
     # CUDA
-    #export PATH=/usr/lib/nvidia-cuda-toolkit:$PATH
-    #export LD_LIBRARY_PATH=/usr/lib/nvidia-cuda-toolkit/lib:$LD_LIBRARY_PATH
-    #export CUDA_ROOT=/usr/lib/nvidia-cuda-toolkit
-    # CUDA ALTERNATIVES
     export PATH=/usr/local/cuda/bin:$PATH
     export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
     export CUDA_ROOT=/usr/local/cuda/bin
@@ -130,15 +125,14 @@ if [ `hostname` == 'fraptop' ]; then
     export TMP='/tmp'
 
     # Set BLAS_FLAG
-    export BLAS_FLAG=''
+    unset BLAS_FLAG
 
     # PATHS
     export PYLEARN2_DATA_PATH='/home/francesco/exp/datasets'
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
-    export THEANORC=~/.theanorc
 
-###################################### HELIOS ###################################
+################################### HELIOS ####################################
 elif [[ `hostname` == *"helios"* ]]; then
     source /rap/jvb-000-aa/local_v2/.local.bashrc
     
@@ -159,23 +153,21 @@ elif [[ `hostname` == *"helios"* ]]; then
     export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
     export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
     source ~/load_modules.sh
-    export THEANORC=~/.theanorc
-######################################## LAB ####################################
-else
-    ##### lab only profile
+
+################################### LAB #######################################
+elif [ `echo $HOSTNAME | cut -d '.' -f 2` == 'iro' ] ; then
+    ##### Load the lab profile
     if [ -e "~/.profile" ];
       then . ~/.profile
     fi
         
-
     if [ -e "/opt/lisa/os_v4/.local.bashrc" ];
       then source "/opt/lisa/os_v4/.local.bashrc"; 
     fi
-    #umask 027
 
     # Set BLAS_FLAG
     # export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
-    export BLAS_FLAG=''
+    unset BLAS_FLAG
 
     # PATHS
     export PYLEARN2_DATA_PATH='/data/lisa/data'
@@ -187,7 +179,12 @@ else
 
 fi
 
-###################################### COMMON ###################################
+################################### COMMON ###################################
+
+if [ -z ${THEANORC+x} ]; then
+    export THEANORC=~/.theanorc
+fi
+
 # GIT AUTOCOMPLETE
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -218,10 +215,7 @@ alias PROFILE='export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS=proﬁle_memory
 
 # PATHS
 #=======
-#export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages/:$PYTHONPATH"
-#export PATH="$HOME/.local_extra/bin/:$HOME/lib/:$PATH"
 export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
-export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
