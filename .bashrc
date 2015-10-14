@@ -174,8 +174,54 @@ elif [ `echo $HOSTNAME | cut -d '.' -f 2` == 'iro' ] ; then
     export BLOCKS_DATA_PATH='/data/lisa/data'
     export FUEL_DATA_PATH='/data/lisa/data'
 
-    # set browser for ipython notebook
-    export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
+    # I'd rather not use the PYTHONPATH, opting for my own conda installation.
+    unset PYTHONPATH
+    
+    # Fred's up-to-date Firefox install. Use the directory that appears
+    # alphabetically last, which hopefully should always be the most recent.
+    if [ -d /opt/lisa/os ]; then
+        FIREFOX_BIN=`/bin/ls -d /opt/lisa/os/firefox-* | tail -n 1`/bin
+        if [ -e $FIREFOX_BIN ] ; then
+            front_of_path $FIREFOX_BIN
+        fi
+    fi
+
+    # David's tmux hack!
+    TMUX_EXECUTABLE=`which tmux`
+    function tmux() {
+        if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
+            CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
+            NEWTICKET=$(mktemp /tmp/krb5cc_${UID}_tmux_XXXXXXXXXXXXXXX)
+            echo cp $CREDENTIALS $NEWTICKET
+            cp $CREDENTIALS $NEWTICKET
+            echo KRB5CCNAME="FILE:$NEWTICKET" tmux "$@"
+            echo ""
+            KRB5CCNAME="FILE:$NEWTICKET" $TMUX_EXECUTABLE "$@"
+        else
+            $TMUX_EXECUTABLE "$@"
+        fi
+    }
+
+    function run_tmux_pkboost() {
+        echo pkboost +d $1
+        pkboost +d $1
+        echo export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
+        export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
+        echo tmux set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
+        $TMUX_EXECUTABLE set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
+    }
+
+    if [ -n "$TMUX" ]; then
+        TMUX_DIR=`dirname \`echo $TMUX |cut -d ',' -f 1\``
+        TMUX_PID=`echo $TMUX |cut -d ',' -f 2`
+        if [ -z "$TMUX_PKBOOST" ]; then
+            run_tmux_pkboost $TMUX_PID
+        fi
+    fi
+
+    # Set browser for ipython notebook
+    # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
+    export BROWSER=$FIREFOX_BIN
 
 fi
 
