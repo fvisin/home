@@ -194,4 +194,13 @@ wiRouter_KeyRec_1.1.2/
 .python-eggs*
 .texlive2007*
 .xsession-errors*
-
+.conda*
+.kderc
+.lesshst
+.psql_history
+graphical_models
+*.jpg
+*.mat
+*.zip
+*.gz
+*.hdf5
