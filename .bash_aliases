@@ -18,7 +18,7 @@ alias egrep='egrep --color=auto'
 if [ `echo $HOSTNAME | cut -d '.' -f 2` == 'iro' ] ; then
     alias vim='vimx'
 elif [ `hostname` == 'fraptop' ]; then
-    alias vim='vim-gnome'
+    alias vim='vim.gnome'
 fi
 
 # Git fast-forward merge
