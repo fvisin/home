@@ -176,6 +176,10 @@ AR() {
     export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
     source activate arctic
 }
+TH() {
+    export PATH=$PATH:"/data/lisa/exp/visin/theano/theano/bin"
+    export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
+}
 CLR() {
     if [ ! -z $CONDA_DEFAULT_ENV ]; then
         source ~/.miniconda/bin/deactivate 
