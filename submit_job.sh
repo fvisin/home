@@ -104,7 +104,7 @@ echo "#PBS -A $ACC_NUM" >> "$QSUB_SCRIPT"
 echo >> "$QSUB_SCRIPT"
 echo "$PRECOMMAND" >> "$QSUB_SCRIPT"
 echo "cd $WORKDIR" >> "$QSUB_SCRIPT"
-echo "export THEANO_FLAGS=$THEANO_FLAGS; export OMP_NUM_THREADS=$NUM_OPENMP_TASKS; $COMMAND" >> "$QSUB_SCRIPT"
+echo "export THEANO_FLAGS=$THEANO_FLAGS; export OMP_NUM_THREADS=$NUM_OPENMP_TASKS; $COMMAND 2>&1 $HOME/q_logs/$FILENAME-$DATE.log" >> "$QSUB_SCRIPT"
 
 # call the scheduler
 mkdir -p q_jobs
