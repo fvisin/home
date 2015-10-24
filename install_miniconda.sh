@@ -67,7 +67,7 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
     fi
     export PATH="$HOME/.miniconda/bin":$PATH
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    conda create -y -n blocks python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc pydot
+    conda create -y -n blocks python ipython ipython-notebook ipython-qtconsole pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc pydot
     source activate blocks
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -79,6 +79,7 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
             conda install -y mkl
             ;;
         *)
+            # should not installed. Numpy already installs the right thing. get rid of it
             conda install -y atlas
             ;;
     esac
@@ -104,7 +105,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
     fi
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    conda create -y -n pylearn2 python ipython pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc matplotlib pydot
+    conda create -y -n pylearn2 python ipython ipython-notebook ipython-qtconsole pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc matplotlib pydot
     source activate pylearn2
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -138,7 +139,7 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
         source ~/.miniconda/bin/deactivate
     fi
     export PATH=$HOME'/.miniconda/bin':$PATH
-    conda create -y -n arctic python ipython pip pil pytables h5py hdf5 cython nose numpydoc matplotlib pydot
+    conda create -y -n arctic python ipython ipython-notebook ipython-qtconsole pip pil pytables h5py hdf5 cython nose numpydoc matplotlib pydot
     source activate arctic
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
