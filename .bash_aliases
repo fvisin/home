@@ -50,6 +50,7 @@ ghpip() {
 
 # disk usage
 disk_usage() {
+    # TODO: apparently ncdu is better
     du -h $1 2> >(grep -v '^du: cannot \(access\|read\)' >&2) | grep '[0-9\.]\+G' | sort -rn
 }
 
@@ -78,25 +79,27 @@ uptheano() {
     currdir=`pwd`
     # normal
     if [ -z ${VIRTUAL_ENV} ]; then
-        if [ ! -d $HOME/exp/theano/theano ]; then
+        export THEANO_PATH=$HOME/exp/theano/theano
+        if [ ! -d $THEANO_PATH ]; then
             echo "Installing theano for the first time..."
-            git clone git@github.com:$GITUSER/Theano.git $HOME/exp/theano/theano
-            cd $HOME/exp/theano/theano
+            git clone git@github.com:$GITUSER/Theano.git $THEANO_PATH
+            cd $THEANO_PATH
             git remote add theano git@github.com:Theano/Theano.git
             python setup.py develop
         else
             echo "Upgrading theano..."
         fi
-            cd $HOME/exp/theano/theano
-            git fetch theano
-            git rebase theano/master master
+        cd $THEANO_PATH
+        git fetch theano
+        git merge --ff-only theano/master master
     # virtual environment
     else
         export THEANO_PATH=$HOME/exp/theano/$CONDA_DEFAULT_ENV/
         if [ ! -d $THEANO_PATH ]; then
             echo "Installing theano for the first time in this environment..."
             git clone 'git@github.com:Theano/Theano.git' $THEANO_PATH
-            cd $THEANO_PATH
+            cd $THEANO_PATH/theano
+            AR
             python setup.py develop
         else
             echo "Upgrading theano in this environment..."
@@ -118,11 +121,13 @@ upblocks() {
         git clone git@github.com:$GITUSER/fuel.git
         cd fuel
         git remote add fuel git@github.com:bartvm/fuel.git
+    else
+        echo "Upgrading fuel..."
     fi
     # update
     cd ~/exp/fuel
     git fetch fuel
-    git rebase fuel/master master
+    git merge --ff-only fuel/master master
     pip install -e file:.#egg=fuel[test,docs]
     python setup.py build_ext --inplace  # rebuild cython
 
@@ -133,11 +138,13 @@ upblocks() {
         git clone git@github.com:$GITUSER/blocks.git 
         cd blocks
         git remote add blocks git@github.com:bartvm/blocks.git
+    else
+        echo "Upgrading blocks..."
     fi
     # update
     cd ~/exp/blocks
     git fetch blocks
-    git rebase blocks/master master
+    git merge --ff-only blocks/master master
     pip install -e file:.#egg=blocks[test,docs] -r requirements.txt
     cd $currdir
 }
@@ -148,8 +155,13 @@ uparctic() {
     currdir=`pwd`
     cd ~/exp/arctic
     git fetch arctic
-    git rebase arctic/master master
+    git merge --ff-only arctic/master master
     cd $currdir
+}
+
+# conda: we don't want to mess with system-wide conda
+upconda() {
+    $HOME/.miniconda/bin/conda update conda
 }
 
 # ENVIRONMENTS
