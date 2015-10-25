@@ -247,6 +247,8 @@ export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'
 # OTHERS
 #========
 export EDITOR=vim
+# tmux stores open sessions in TMPDIR. Has to be the same on local and remote!
+export TMPDIR=/tmp  
 
 # autojump
 [[ -s /u/visin/.autojump/etc/profile.d/autojump.sh ]] && source /u/visin/.autojump/etc/profile.d/autojump.sh
