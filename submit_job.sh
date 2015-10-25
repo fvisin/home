@@ -113,7 +113,7 @@ if [ -z ${CHAINTO+x} ]; then
     JOB_ID="$(qsub "$QSUB_SCRIPT")"
 else
     echo Chaining job to $CHAINTO ...
-    JOB_ID="$(qsub "-W depend=afterok:"$CHAINTO "$QSUB_SCRIPT")"
+    JOB_ID="$(qsub "-W depend=after:"$CHAINTO "$QSUB_SCRIPT")"
 fi
 echo Done. 
 echo Job id: "${JOB_ID}"
