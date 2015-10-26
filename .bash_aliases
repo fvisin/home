@@ -99,13 +99,14 @@ uptheano() {
         if [ ! -d $THEANO_PATH ]; then
             echo "Installing theano for the first time in this environment..."
             git clone 'git@github.com:Theano/Theano.git' $THEANO_PATH
-            cd $THEANO_PATH/theano
-            AR
+            cd $THEANO_PATH
             python setup.py develop
         else
             echo "Upgrading theano in this environment..."
             cd $THEANO_PATH
-            git pull origin
+            git fetch theano
+            git merge --ff-only origin
+            theano-cache clear
         fi
     fi
     cd $currdir
