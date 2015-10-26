@@ -31,4 +31,4 @@ floatX = float32
 
 [lib]
 # Faster CUDA memory allocator
-cnmem = 1
+cnmem = 0.95
