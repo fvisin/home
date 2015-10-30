@@ -105,6 +105,7 @@ if [ `hostname` == 'fraptop' ]; then
    
     # Set TMP
     export TMP='/tmp'
+    export TMPDIR='/tmp'
 
     # Set BLAS_FLAG
     unset BLAS_FLAG
@@ -124,6 +125,10 @@ elif [[ `hostname` == *"helios"* ]]; then
             . $i
         fi
     done
+
+    # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
+    # connecting with ssh the local TMPDIR will be set in some cases.
+    export TMPDIR=/Tmp/visin
 
     # User specific environment and startup programs
     export PATH=$PATH:$HOME/bin
@@ -152,6 +157,10 @@ elif [ `hostname -d` == 'iro.umontreal.ca' ] ; then
     # Set BLAS_FLAG
     # export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
     unset BLAS_FLAG
+
+    # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
+    # connecting with ssh the local TMPDIR will be set in some cases.
+    export TMPDIR=/Tmp/visin
 
     # PATHS
     export PYLEARN2_DATA_PATH='/data/lisa/data'
@@ -249,8 +258,6 @@ export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'
 # OTHERS
 #========
 export EDITOR=vim
-# tmux stores open sessions in TMPDIR. Has to be the same on local and remote!
-export TMPDIR=/tmp  
 
 # autojump
 [[ -s /u/visin/.autojump/etc/profile.d/autojump.sh ]] && source /u/visin/.autojump/etc/profile.d/autojump.sh
