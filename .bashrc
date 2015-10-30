@@ -137,13 +137,15 @@ elif [[ `hostname` == *"helios"* ]]; then
     source ~/load_modules.sh
 
 ################################### LAB #######################################
-elif [ `echo $HOSTNAME | cut -d '.' -f 2` == 'iro' ] ; then
+elif [ `hostname -d` == 'iro.umontreal.ca' ] ; then
     ##### Load the lab profile
     if [ -e "~/.profile" ];
       then . ~/.profile
     fi
         
-    if [ -e "/opt/lisa/os_v4/.local.bashrc" ];
+    if [ -e "/opt/lisa/os_v5/.local.bashrc" ];
+      then source "/opt/lisa/os_v5/.local.bashrc"; 
+    elif [ -e "/opt/lisa/os_v4/.local.bashrc" ];
       then source "/opt/lisa/os_v4/.local.bashrc"; 
     fi
 
