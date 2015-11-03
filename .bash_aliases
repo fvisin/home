@@ -98,7 +98,7 @@ uptheano() {
         export THEANO_PATH=$HOME/exp/theano/$CONDA_DEFAULT_ENV/
         if [ ! -d $THEANO_PATH ]; then
             echo "Installing theano for the first time in this environment..."
-            git clone 'git@github.com:Theano/Theano.git' $THEANO_PATH
+            git clone -o theano 'git@github.com:Theano/Theano.git' $THEANO_PATH
             cd $THEANO_PATH
             python setup.py develop
         else

@@ -241,7 +241,9 @@ export TEXINPUTS=.:$HOME/articles/sty:
 
 # PATHS
 #=======
-export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
+export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:$HOME/exp/theano/theano/bin:"$PATH
+export THEANO_PATH="$HOME/exp/theano/theano"
+export PYTHONPATH="$THEANO_PATH"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
