@@ -105,7 +105,7 @@ uptheano() {
             echo "Upgrading theano in this environment..."
             cd $THEANO_PATH
             git fetch theano
-            git merge --ff-only origin
+            git merge --ff-only theano/master master
             theano-cache clear
         fi
     fi
