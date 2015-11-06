@@ -155,7 +155,7 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy scipy
-    pip install --upgrade ipdb pycuda
+    pip install --upgrade ipdb pycuda retrying
     # installa a mano pycuda
     # wget https://pypi.python.org/packages/source/p/pycuda/pycuda-2014.1.tar.gz
     # tar xfz pycuda-2014.1.tar.gz
