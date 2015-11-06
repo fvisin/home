@@ -242,7 +242,6 @@ export TEXINPUTS=.:$HOME/articles/sty:
 # PATHS
 #=======
 export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
-export THEANO_PATH="$HOME/exp/theano/theano"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
@@ -278,3 +277,12 @@ WHITE='\[\e[0;37m\]'        # White
 RESET=${WHITE}
 PS1=${GREEN}'┌─────── \u@\h'${BLUE}' [\w]'${YELLOW}'$(__git_ps1 " (%s)")\n'${GREEN}'└─ λ '${RESET}
 # VIRTUAL_ENV_DISABLE_PROMPT=1 source ~/Enthought/Canopy_64bit/User/bin/activate
+
+# Set an xterm title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
