@@ -22,6 +22,8 @@ floatX = float32
 # ignore: Silently ignore the computation of intermediate test values, if a variable is missing a test value.
 #compute_test_value = off
 
+print_test_value = True
+
 # Use full names
 # exception_verbosity = high
 
