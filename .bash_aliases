@@ -32,6 +32,7 @@ alias gff='git merge --ff-only'
 # DIRO has the NFS/Kerberos Setup From Hell.
 # From http://unix.stackexchange.com/q/15138
 alias sshpw='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+
 # Quick and dirty installation of packages with pip from GitHub.
 ghpip() {
     if [ $# == 0 ]; then
@@ -53,6 +54,9 @@ disk_usage() {
     # TODO: apparently ncdu is better
     du -h $1 2> >(grep -v '^du: cannot \(access\|read\)' >&2) | grep '[0-9\.]\+G' | sort -rn
 }
+
+# rsync options
+alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --remove-source-files --copy-links "
 
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
