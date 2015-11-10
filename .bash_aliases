@@ -110,7 +110,7 @@ uptheano() {
             cd $THEANO_PATH
             git fetch theano
             git merge --ff-only theano/master master
-            theano-cache clear
+            bin/theano-cache clear
         fi
     fi
     cd $currdir
