@@ -15,9 +15,11 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Graphical vim
-if [ `echo $HOSTNAME | cut -d '.' -f 2` == 'iro' ] ; then
+if type vimx >/dev/null 2>&1; then 
     alias vim='vimx'
-elif [ `hostname` == 'fraptop' ]; then
+elif type gvim >/dev/null 2>&1; then
+    alias vim='gvim'
+else 
     alias vim='vim.gnome'
 fi
 
