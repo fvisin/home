@@ -19,8 +19,6 @@ if type vimx >/dev/null 2>&1; then
     alias vim='vimx'
 elif type gvim >/dev/null 2>&1; then
     alias vim='gvim'
-else 
-    alias vim='vim.gnome'
 fi
 
 # Git fast-forward merge
