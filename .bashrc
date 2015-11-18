@@ -87,7 +87,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 ################################### LAPTOP ####################################
-if [ `hostname` == 'fraptop' ]; then
+if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
 
     # enable bash completion in interactive shells
     if ! shopt -oq posix; then
@@ -142,7 +142,7 @@ elif [[ `hostname` == *"helios"* ]]; then
     source ~/load_modules.sh
 
 ################################### LAB #######################################
-elif [ `hostname -d` == 'iro.umontreal.ca' ] ; then
+elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     ##### Load the lab profile
     if [ -e "~/.profile" ];
       then . ~/.profile
