@@ -84,7 +84,8 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml 
-    pip install --upgrade ipdb pycuda
+    conda install --channel https://conda.anaconda.org/trent ipdb
+    pip install --upgrade pycuda
     uptheano
     upblocks
     #cd ~/exp/fuel
@@ -121,7 +122,8 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy
-    pip install --upgrade ipdb pycuda
+    conda install --channel https://conda.anaconda.org/trent ipdb
+    pip install --upgrade pycuda
     uptheano
     cd ~/exp
     git clone git@github.com:fvisin/pylearn2.git
@@ -130,6 +132,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
 fi
 
 # Install arctic
+# --------------
 if [ $INSTALL_ARCTIC -eq 1 ]; then
     echo; echo; echo;
     echo "-----------------"
@@ -155,7 +158,8 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy scipy
-    pip install --upgrade ipdb pycuda retrying
+    conda install --channel https://conda.anaconda.org/trent ipdb
+    pip install --upgrade pycuda retrying
     # installa a mano pycuda
     # wget https://pypi.python.org/packages/source/p/pycuda/pycuda-2014.1.tar.gz
     # tar xfz pycuda-2014.1.tar.gz
