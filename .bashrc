@@ -249,6 +249,12 @@ export PATH_INIT="$PATH"
 #=====================
 export THEANO_FLAGS=$BLAS_FLAG
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
+# libgpuarray
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib64/
+export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
+export CPATH=$CPATH:~/.local/include
+export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib
 
 # PYLEARN2
 #==========
