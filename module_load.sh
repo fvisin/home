@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo `pwd`
-source $HOME/.bashrc
 if [ $0 == "-bash" ]; then
   BASENAME="-bash"
 else
