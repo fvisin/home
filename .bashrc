@@ -212,6 +212,12 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
         fi
     fi
 
+    # Set cache to be local
+    export XDG_CACHE_HOME='/Tmp/visin'
+
+    # Enable eog and Image.show()
+    export DISPLAY=:0.0
+
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
     export BROWSER=$FIREFOX_BIN
