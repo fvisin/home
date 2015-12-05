@@ -17,8 +17,6 @@ alias egrep='egrep --color=auto'
 # Graphical vim
 if type vimx >/dev/null 2>&1; then 
     alias vim='vimx'
-elif type gvim >/dev/null 2>&1; then
-    alias vim='gvim'
 fi
 
 # Git fast-forward merge
