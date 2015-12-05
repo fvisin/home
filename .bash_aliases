@@ -84,17 +84,19 @@ uptheano() {
         export THEANO_PATH=$HOME/exp/theano/theano
         if [ ! -d $THEANO_PATH ]; then
             echo "Installing theano for the first time..."
-            git clone git@github.com:$GITUSER/Theano.git $THEANO_PATH
+            git clone -o theano 'git@github.com:Theano/Theano.git' $THEANO_PATH
             cd $THEANO_PATH
-            git remote add theano git@github.com:Theano/Theano.git
-            python setup.py develop
+            # python setup.py develop
         else
             echo "Upgrading theano..."
+            cd $THEANO_PATH
+            git fetch theano
+            git merge --ff-only theano/master master
+            PPATH=$PYTHONPATH
+            export PYTHONPATH=$PYTHONPATH:$THEANO_PATH
+            bin/theano-cache clear
+            export PYTHONPATH=$PPATH
         fi
-        cd $THEANO_PATH
-        git fetch theano
-        git merge --ff-only theano/master master
-        theano-cache clear
     # virtual environment
     else
         export THEANO_PATH=$HOME/exp/theano/$CONDA_DEFAULT_ENV/
@@ -102,6 +104,8 @@ uptheano() {
             echo "Installing theano for the first time in this environment..."
             git clone -o theano 'git@github.com:Theano/Theano.git' $THEANO_PATH
             cd $THEANO_PATH
+            git clone -o theano 'git@github.com:$GITUSER/Theano.git' $THEANO_PATH
+            git remote add origin git@github.com:fvisin/Theano.git
             python setup.py develop
         else
             echo "Upgrading theano in this environment..."
