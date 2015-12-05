@@ -54,7 +54,7 @@ disk_usage() {
 }
 
 # rsync options
-alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --remove-source-files --copy-links "
+alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-links "
 
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
