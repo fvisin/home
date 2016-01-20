@@ -88,6 +88,8 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+export TERM=screen-256color
+
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
 
@@ -218,7 +220,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     export XDG_CACHE_HOME='/Tmp/visin'
 
     # Enable eog and Image.show()
-    export DISPLAY=:0.0
+    # export DISPLAY=:0.0
 
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
