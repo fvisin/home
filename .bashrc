@@ -256,7 +256,7 @@ export PATH_INIT="$PATH"
 # THEANO AND PYLEARN2
 #=====================
 export THEANO_FLAGS=$BLAS_FLAG
-export THEANO_FLAGS_INIT="$THEANO_FLAGS"
+export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 # libgpuarray
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib64/
 export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
