@@ -88,7 +88,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-export TERM=gnome-256color
+# export TERM=gnome-256color
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
@@ -282,7 +282,7 @@ export EDITOR=vim
 source ~/.git-prompt.sh
 
 # SOLARIZED
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then TERM=gnome-256color; fi
+# if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then TERM=gnome-256color; fi
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
@@ -325,19 +325,19 @@ if tput setaf 1 &> /dev/null; then
 else
     # Linux console colors. I don't have the energy
     # to figure out the Solarized values
-    MAGENTA="\033[1;31m"
-    ORANGE="\033[1;33m"
-    GREEN="\033[1;32m"
-    PURPLE="\033[1;35m"
-    WHITE="\033[1;37m"
+    MAGENTA="\e[1;31m"
+    ORANGE="\e[1;33m"
+    GREEN="\e[1;32m"
+    PURPLE="\e[1;35m"
+    WHITE="\e[1;37m"
     BOLD=""
-    RESET="\033[m"
+    RESET="\e[m"
 fi
 # format bash
 # RESET=${WHITE}
 #RESET=${BASE01}
 
-PS1="\[${GREEN}\]┌─────── \u@\h\[${BLUE}\] [\w]\[${YELLOW}\]$(__git_ps1 " (%s)")\n\[${GREEN}\]└─ λ \[${RESET}\]"
+PS1="\[$GREEN\]┌─────── \u@\h\[$BLUE\] [\w]\[$YELLOW\]\$(__git_ps1 )\n\[$GREEN\]└─ λ \[$RESET\]"
 # PS1="\[${GREEN}\]\u \[$BASE0\]at \[$CYAN\]\h \[$BASE0\]in \[$BLUE\]\w\[$BASE0\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\[$BASE0\]\n\$ \[$RESET\]"
 
 # VIRTUAL_ENV_DISABLE_PROMPT=1 source ~/Enthought/Canopy_64bit/User/bin/activate
