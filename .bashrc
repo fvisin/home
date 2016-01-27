@@ -90,6 +90,7 @@ fi
 
 
 export TERM=xterm-256color
+eval `dircolors ~/.dircolors`
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
