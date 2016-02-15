@@ -190,6 +190,8 @@ AR() {
     source activate arctic
 }
 TH() {
+    echo "Resetting THEANO_FLAGS, PYTHONPATH and PATH ..."
+    CLR
     export PATH=$PATH:"/data/lisa/exp/visin/theano/theano/bin"
     export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
 }
