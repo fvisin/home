@@ -91,6 +91,7 @@ fi
 
 export TERM=xterm-256color
 eval `dircolors ~/.dircolors`
+export $(dbus-launch)
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
