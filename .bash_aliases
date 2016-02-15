@@ -175,14 +175,6 @@ upconda() {
 
 # ENVIRONMENTS
 # =============
-PL() {
-    export VIRTUAL_ENV="$HOME/.miniconda/envs/pylearn2"
-    export PATH="$HOME/.miniconda/bin:$PATH"
-    export PATH="$HOME/exp/pylearn2/pylearn2/scripts:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/pylearn2/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
-    source activate pylearn2
-}
 BL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
     export PATH="$HOME/.miniconda/bin:$PATH"
@@ -214,7 +206,6 @@ CLR() {
 export -f uptheano
 export -f upblocks
 export -f uparctic
-export -f PL
 export -f BL
 export -f AR
 export -f CLR
