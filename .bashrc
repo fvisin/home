@@ -90,7 +90,32 @@ if [ -f /etc/bashrc ]; then
 fi
 
 
-export TERM=xterm-256color
+# Enable 256 color capabilities for appropriate terminals
+
+# Set this variable in your local shell config if you want remote
+# xterms connecting to this system, to be sent 256 colors.
+# This can be done in /etc/csh.cshrc, or in an earlier profile.d script.
+#   SEND_256_COLORS_TO_REMOTE=1
+
+# Terminals with any of the following set, support 256 colors (and are local)
+local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
+
+if [ -n "$local256" ] || [ -n "$SEND_256_COLORS_TO_REMOTE" ]; then
+
+  case "$TERM" in
+    'xterm') TERM=xterm-256color;;
+    'screen') TERM=screen-256color;;
+    'Eterm') TERM=Eterm-256color;;
+  esac
+  export TERM
+
+  if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
+    TERMCAP=$(echo "$TERMCAP" | sed -e 's/Co#8/Co#256/g')
+    export TERMCAP
+  fi
+fi
+
+unset local256
 eval `dircolors ~/.dircolors`
 export $(dbus-launch)
 
@@ -123,6 +148,10 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
 
+    # LC
+    export LC_CTYPE=it_IT.UTF-8
+    export LC_ALL=it_IT.UTF-8
+
 ################################### HELIOS ####################################
 elif [[ `hostname` == *"helios"* ]]; then
     source /rap/jvb-000-aa/local_v2/.local.bashrc
@@ -148,6 +177,10 @@ elif [[ `hostname` == *"helios"* ]]; then
     export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
     export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
     source ~/load_modules.sh
+
+    # LC
+    export LC_CTYPE=en_CA.UTF-8
+    export LC_ALL=en_CA.UTF-8
 
 ################################### LAB #######################################
 elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
@@ -226,6 +259,10 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
     export BROWSER=$FIREFOX_BIN
+
+    # LC
+    export LC_CTYPE=en_CA.UTF-8
+    export LC_ALL=en_CA.UTF-8
 
 fi
 
@@ -323,19 +360,18 @@ if tput setaf 1 &> /dev/null; then
     fi
     BOLD=$(tput bold)
     RESET=$(tput sgr0)
-else
-    echo "Basic colors"
+# else
     # Linux console colors. I don't have the energy
     # to figure out the Solarized values
     # foreground colors
-    BLACK=\e[0;30m        # Black
-    RED=\e[0;31m          # Red
-    GREEN=\e[0;32m        # Green
-    YELLOW=\e[0;33m       # Yellow
-    BLUE=\e[0;34m         # Blue
-    PURPLE=\e[0;35m       # Purple
-    CYAN=\e[0;36m         # Cyan
-    WHITE=\e[0;37m        # White
+    # BLACK=\e[0;30m        # Black
+    # RED=\e[0;31m          # Red
+    # GREEN=\e[0;32m        # Green
+    # YELLOW=\e[0;33m       # Yellow
+    # BLUE=\e[0;34m         # Blue
+    # PURPLE=\e[0;35m       # Purple
+    # CYAN=\e[0;36m         # Cyan
+    # WHITE=\e[0;37m        # White
     # MAGENTA="\033[1;31m"
     # ORANGE="\033[1;33m"
     # GREEN="\033[1;32m"
