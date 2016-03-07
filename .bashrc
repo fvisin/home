@@ -60,10 +60,11 @@ shopt -s checkwinsize
 # fi
 # unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# If this is an gnome-terminal set the title to user@host:dir
+# For konsole, just modify the preferences to print %w
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1" # gnome
     ;;
 *)
     ;;
@@ -88,7 +89,34 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# export TERM=gnome-256color
+
+# Enable 256 color capabilities for appropriate terminals
+
+# Set this variable in your local shell config if you want remote
+# xterms connecting to this system, to be sent 256 colors.
+# This can be done in /etc/csh.cshrc, or in an earlier profile.d script.
+#   SEND_256_COLORS_TO_REMOTE=1
+
+# Terminals with any of the following set, support 256 colors (and are local)
+# local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
+# 
+# if [ -n "$local256" ] || [ -n "$SEND_256_COLORS_TO_REMOTE" ]; then
+# 
+#   case "$TERM" in
+#     'xterm') TERM=xterm-256color;;
+#     'screen') TERM=screen-256color;;
+#     'Eterm') TERM=Eterm-256color;;
+#   esac
+#   export TERM
+# 
+#   if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
+#     TERMCAP=$(echo "$TERMCAP" | sed -e 's/Co#8/Co#256/g')
+#     export TERMCAP
+#   fi
+# fi
+# unset local256
+eval `dircolors ~/.dircolors`
+export $(dbus-launch)
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
@@ -104,7 +132,7 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
  
     # CUDA
     export PATH=/usr/local/cuda/bin:$PATH
-    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
+    # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
     export CUDA_ROOT=/usr/local/cuda/bin
    
     # Set TMP
@@ -118,6 +146,10 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     export PYLEARN2_DATA_PATH='/home/francesco/exp/datasets'
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
+
+    # LC
+    export LC_CTYPE=it_IT.UTF-8
+    export LC_ALL=it_IT.UTF-8
 
 ################################### HELIOS ####################################
 elif [[ `hostname` == *"helios"* ]]; then
@@ -144,6 +176,10 @@ elif [[ `hostname` == *"helios"* ]]; then
     export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
     export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
     source ~/load_modules.sh
+
+    # LC
+    export LC_CTYPE=en_CA.UTF-8
+    export LC_ALL=en_CA.UTF-8
 
 ################################### LAB #######################################
 elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
@@ -219,12 +255,13 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     # Set cache to be local
     export XDG_CACHE_HOME='/Tmp/visin'
 
-    # Enable eog and Image.show()
-    # export DISPLAY=:0.0
-
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
     export BROWSER=$FIREFOX_BIN
+
+    # LC
+    export LC_CTYPE=en_CA.UTF-8
+    export LC_ALL=en_CA.UTF-8
 
 fi
 
@@ -258,7 +295,8 @@ export PATH_INIT="$PATH"
 # THEANO AND PYLEARN2
 #=====================
 export THEANO_FLAGS=$BLAS_FLAG
-export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
+# export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
+export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib64/
 export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
@@ -283,6 +321,8 @@ source ~/.git-prompt.sh
 
 # SOLARIZED
 # if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then TERM=gnome-256color; fi
+# See http://unix.stackexchange.com/questions/105926/how-to-include-commands-in-bashs-ps1-without-breaking-line-length-calculation
+
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
@@ -322,24 +362,30 @@ if tput setaf 1 &> /dev/null; then
     fi
     BOLD=$(tput bold)
     RESET=$(tput sgr0)
-else
+# else
     # Linux console colors. I don't have the energy
     # to figure out the Solarized values
-    MAGENTA="\e[1;31m"
-    ORANGE="\e[1;33m"
-    GREEN="\e[1;32m"
-    PURPLE="\e[1;35m"
-    WHITE="\e[1;37m"
-    BOLD=""
-    RESET="\e[m"
+    # foreground colors
+    # BLACK=\e[0;30m        # Black
+    # RED=\e[0;31m          # Red
+    # GREEN=\e[0;32m        # Green
+    # YELLOW=\e[0;33m       # Yellow
+    # BLUE=\e[0;34m         # Blue
+    # PURPLE=\e[0;35m       # Purple
+    # CYAN=\e[0;36m         # Cyan
+    # WHITE=\e[0;37m        # White
+    # MAGENTA="\033[1;31m"
+    # ORANGE="\033[1;33m"
+    # GREEN="\033[1;32m"
+    # PURPLE="\033[1;35m"
+    # WHITE="\033[1;37m"
+    # BOLD=""
+    # RESET="\033[m"
 fi
+
 # format bash
 # RESET=${WHITE}
-#RESET=${BASE01}
-
-PS1="\[$GREEN\]┌─────── \u@\h\[$BLUE\] [\w]\[$YELLOW\]\$(__git_ps1 )\n\[$GREEN\]└─ λ \[$RESET\]"
-# PS1="\[${GREEN}\]\u \[$BASE0\]at \[$CYAN\]\h \[$BASE0\]in \[$BLUE\]\w\[$BASE0\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\[$BASE0\]\n\$ \[$RESET\]"
-
+PS1='\[${GREEN}\]┌─────── \u@\h\[${BLUE}\] [\w]\[${YELLOW}\]$(__git_ps1 " (%s)")\n\[${GREEN}\]└─ λ \[${RESET}\]'
 # VIRTUAL_ENV_DISABLE_PROMPT=1 source ~/Enthought/Canopy_64bit/User/bin/activate
 
 # Set an xterm title to user@host:dir

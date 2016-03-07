@@ -59,6 +59,10 @@ alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-li
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
 
+# For some reason with this configuration and set -g default-terminal "xterm" 
+# I can finally see the right colors in tmux
+alias tmux="TERM=xterm-256color tmux"
+
 # Quick set THEANO_FLAGS
 CPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu,floatX=float32$BLAS_FLAG; }
 CPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu0,floatX=float32$BLAS_FLAG; }
@@ -68,6 +72,12 @@ GPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu,floatX=float32,scan.a
 GPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
 GPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
 GPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU4(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU6(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu6,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU7(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu7,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU8(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu8,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
 GPU0SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32$BLAS_FLAG; }
 GPU1SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32$BLAS_FLAG; }
 GPU2SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32$BLAS_FLAG; }
@@ -175,14 +185,6 @@ upconda() {
 
 # ENVIRONMENTS
 # =============
-PL() {
-    export VIRTUAL_ENV="$HOME/.miniconda/envs/pylearn2"
-    export PATH="$HOME/.miniconda/bin:$PATH"
-    export PATH="$HOME/exp/pylearn2/pylearn2/scripts:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/pylearn2/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
-    source activate pylearn2
-}
 BL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
     export PATH="$HOME/.miniconda/bin:$PATH"
@@ -198,6 +200,8 @@ AR() {
     source activate arctic
 }
 TH() {
+    echo "Resetting THEANO_FLAGS, PYTHONPATH and PATH ..."
+    CLR
     export PATH=$PATH:"/data/lisa/exp/visin/theano/theano/bin"
     export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
 }
@@ -214,7 +218,6 @@ CLR() {
 export -f uptheano
 export -f upblocks
 export -f uparctic
-export -f PL
 export -f BL
 export -f AR
 export -f CLR

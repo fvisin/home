@@ -68,7 +68,7 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
     fi
     export PATH="$HOME/.miniconda/bin":$PATH
     export PYTHONPATH="$HOME/.local_extra/lib/python2.7/site-packages"
-    conda create -y -n blocks python ipython ipython-notebook ipython-qtconsole pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc pydot
+    conda create -y -n blocks python pip pil matplotlib pytables h5py hdf5 cython pyyaml nose progressbar bokeh numpydoc pydot
     source activate blocks
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -85,7 +85,8 @@ if [ $INSTALL_BLOCKS -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy six=1.9.0 pandas=0.16.0 PyYaml 
-    conda install -y --channel https://conda.anaconda.org/trent ipdb
+    # conda install -y --channel https://conda.anaconda.org/trent ipdb --> works like shit
+    pip install --upgrade ipython==4.1.0 ipdb==0.8.1
     if [ $INSTALL_WITH_CUDA -eq 1 ]; then
         pip install --upgrade pycuda
     fi
@@ -109,7 +110,7 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
     fi
     export PATH=$HOME'/.miniconda/bin':$PATH
     export PYTHONPATH=$HOME'/.local/lib/python2.7/site-packages'
-    conda create -y -n pylearn2 python ipython ipython-notebook ipython-qtconsole pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc matplotlib pydot
+    conda create -y -n pylearn2 python pip pil matplotlib pytables h5py hdf5 cython pyyaml nose numpydoc matplotlib pydot
     source activate pylearn2
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -125,7 +126,8 @@ if [ $INSTALL_PYLEARN2 -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy=1.9.2 scipy
-    conda install -y --channel https://conda.anaconda.org/trent ipdb
+    # conda install -y --channel https://conda.anaconda.org/trent ipdb --> works like shit
+    pip install --upgrade ipython==4.1.0 ipdb==0.8.1
     if [ $INSTALL_WITH_CUDA -eq 1 ]; then
         pip install --upgrade pycuda 
     fi
@@ -147,7 +149,7 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
         source ~/.miniconda/bin/deactivate
     fi
     export PATH=$HOME'/.miniconda/bin':$PATH
-    conda create -y -n arctic python ipython ipython-notebook ipython-qtconsole pip pil pytables h5py hdf5 cython nose numpydoc matplotlib pydot
+    conda create -y -n arctic python pip pil pytables h6py hdf5 cython nose numpydoc matplotlib pydot scikit-learn scikit-image 
     source activate arctic
     if [ -z $INSTALL_MKL ]; then
         read -r -p "Do you want to install mkl? [y/N] " response
@@ -163,8 +165,8 @@ if [ $INSTALL_ARCTIC -eq 1 ]; then
             ;;
     esac
     conda install -y pydot numpy scipy
-    conda install -y --channel https://conda.anaconda.org/trent ipdb
-    pip install --upgrade retrying
+    # conda install -y --channel https://conda.anaconda.org/trent ipdb --> works like shit
+    pip install --upgrade ipython==4.1.0 ipdb==0.8.1 tabulate retrying progressbar2
     if [ $INSTALL_WITH_CUDA -eq 1 ]; then
         pip install --upgrade pycuda 
     fi
