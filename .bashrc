@@ -98,24 +98,23 @@ fi
 #   SEND_256_COLORS_TO_REMOTE=1
 
 # Terminals with any of the following set, support 256 colors (and are local)
-local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
-
-if [ -n "$local256" ] || [ -n "$SEND_256_COLORS_TO_REMOTE" ]; then
-
-  case "$TERM" in
-    'xterm') TERM=xterm-256color;;
-    'screen') TERM=screen-256color;;
-    'Eterm') TERM=Eterm-256color;;
-  esac
-  export TERM
-
-  if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
-    TERMCAP=$(echo "$TERMCAP" | sed -e 's/Co#8/Co#256/g')
-    export TERMCAP
-  fi
-fi
-
-unset local256
+# local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
+# 
+# if [ -n "$local256" ] || [ -n "$SEND_256_COLORS_TO_REMOTE" ]; then
+# 
+#   case "$TERM" in
+#     'xterm') TERM=xterm-256color;;
+#     'screen') TERM=screen-256color;;
+#     'Eterm') TERM=Eterm-256color;;
+#   esac
+#   export TERM
+# 
+#   if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
+#     TERMCAP=$(echo "$TERMCAP" | sed -e 's/Co#8/Co#256/g')
+#     export TERMCAP
+#   fi
+# fi
+# unset local256
 eval `dircolors ~/.dircolors`
 export $(dbus-launch)
 
@@ -321,6 +320,8 @@ source ~/.git-prompt.sh
 
 # SOLARIZED
 # if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then TERM=gnome-256color; fi
+# See http://unix.stackexchange.com/questions/105926/how-to-include-commands-in-bashs-ps1-without-breaking-line-length-calculation
+
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then

@@ -59,6 +59,10 @@ alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-li
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
 
+# For some reason with this configuration and set -g default-terminal "xterm" 
+# I can finally see the right colors in tmux
+alias tmux="TERM=xterm-256color tmux"
+
 # Quick set THEANO_FLAGS
 CPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu,floatX=float32$BLAS_FLAG; }
 CPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu0,floatX=float32$BLAS_FLAG; }
