@@ -282,9 +282,9 @@ fi
 # Ctrl-D
 IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 
-export BIBINPUTS=.:$HOME/articles/bib:
-export BSTINPUTS=.:$HOME/articles/bst:
-export TEXINPUTS=.:$HOME/articles/sty:
+# export BIBINPUTS=.:$HOME/articles/bib:
+# export BSTINPUTS=.:$HOME/articles/bst:
+# export TEXINPUTS=.:$HOME/articles/sty:
 
 # PATHS
 #=======
