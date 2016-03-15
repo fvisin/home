@@ -153,14 +153,24 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
 
 ################################### HELIOS ####################################
 elif [[ `hostname` == *"helios"* ]]; then
-    source /rap/jvb-000-aa/local_v2/.local.bashrc
-    
+    # Source global definitions
+    if [ -f /etc/bashrc ]; then
+       . /etc/bashrc
+    fi
+
     # CLUMEQ
     for i in /clumeq/etc/profile.d/*.sh ; do
-        if [ -r "$i" ]; then
-            . $i
-        fi
+       if [ -r "$i" ]; then
+           . $i
+       fi
     done
+
+    # Source group definitions
+    if [ -f /rap/jvb-000-aa/local_v3/.local.bashrc ]; then
+       . /rap/jvb-000-aa/local_v3/.local.bashrc
+    else
+       echo "No config available. Please report this."
+    fi
 
     # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
     # connecting with ssh the local TMPDIR will be set in some cases.
