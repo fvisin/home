@@ -89,6 +89,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+# For some reason with this configuration and set -g default-terminal "xterm" 
+# I can finally see the right colors in tmux
+alias tmux="TERM=xterm-256color tmux"
 
 # Enable 256 color capabilities for appropriate terminals
 
@@ -116,7 +119,7 @@ fi
 # fi
 # unset local256
 eval `dircolors ~/.dircolors`
-export $(dbus-launch)
+# export $(dbus-launch)
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
@@ -220,9 +223,11 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
 
     # David's tmux hack!
+    #alias tmux="krenew -b -t tmux"
     TMUX_EXECUTABLE=`which tmux`
     function tmux() {
         if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
+            echo DAVID
             CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
             NEWTICKET=$(mktemp /tmp/krb5cc_${UID}_tmux_XXXXXXXXXXXXXXX)
             echo cp $CREDENTIALS $NEWTICKET
@@ -253,7 +258,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
 
     # Set cache to be local
-    export XDG_CACHE_HOME='/Tmp/visin'
+    # export XDG_CACHE_HOME='/Tmp/visin'
 
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
@@ -282,9 +287,9 @@ fi
 # Ctrl-D
 IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 
-export BIBINPUTS=.:$HOME/articles/bib:
-export BSTINPUTS=.:$HOME/articles/bst:
-export TEXINPUTS=.:$HOME/articles/sty:
+# export BIBINPUTS=.:$HOME/articles/bib:
+# export BSTINPUTS=.:$HOME/articles/bst:
+# export TEXINPUTS=.:$HOME/articles/sty:
 
 # PATHS
 #=======
