@@ -53,15 +53,16 @@ disk_usage() {
     du -h $1 2> >(grep -v '^du: cannot \(access\|read\)' >&2) | grep '[0-9\.]\+G' | sort -rn
 }
 
+# who is using gpus
+gpu_who() {
+    for i in `nvidia-smi -q -d PIDS | grep ID | cut -d ":" -f2`; do ps -u -p "$i"; done
+}
+
 # rsync options
 alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-links "
 
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
-
-# For some reason with this configuration and set -g default-terminal "xterm" 
-# I can finally see the right colors in tmux
-alias tmux="TERM=xterm-256color tmux"
 
 # Quick set THEANO_FLAGS
 CPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu,floatX=float32$BLAS_FLAG; }
@@ -188,22 +189,20 @@ upconda() {
 BL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
+    # export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
     source activate blocks
 }
 AR() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/arctic"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
+    # export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
     source activate arctic
 }
 TH() {
     echo "Resetting THEANO_FLAGS, PYTHONPATH and PATH ..."
     CLR
     export PATH=$PATH:"/data/lisa/exp/visin/theano/theano/bin"
-    export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
+    # export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
 }
 CLR() {
     if [ ! -z $CONDA_DEFAULT_ENV ]; then
