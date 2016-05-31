@@ -70,20 +70,24 @@ CPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu0,floatX=float32$BLAS
 CPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu1,floatX=float32$BLAS_FLAG; }
 CPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu2,floatX=float32$BLAS_FLAG; }
 GPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU4(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU6(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu6,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU7(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu7,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU8(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu8,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU0SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32$BLAS_FLAG; }
-GPU1SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32$BLAS_FLAG; }
-GPU2SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32$BLAS_FLAG; }
+GPU0FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU1FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU2FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU3FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU4FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU5FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU6FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu6,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU7FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu7,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU8FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu8,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32$BLAS_FLAG; }
+GPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32$BLAS_FLAG; }
+GPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32$BLAS_FLAG; }
+GPU3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32$BLAS_FLAG; }
+GPU4(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32$BLAS_FLAG; }
+GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32$BLAS_FLAG; }
 CUDA0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda0,floatX=float16$BLAS_FLAG; }
 PROFILE(){ export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS="$THEANO_FLAGS_INIT",proﬁle_memory=True,profile=True,$THEANO_FLAGS; }
+PL(){ export THEANO_FLAGS="$THEANO_FLAGS",dnn.conv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once,optimizer_excluding=local_softmax_dnn_grad; }
 
 # Frameworks update
 # ==================
