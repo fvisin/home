@@ -74,7 +74,7 @@ esac
 # #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
  
-export CUDNN=4
+# export CUDNN=5
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -294,6 +294,7 @@ IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 # PATHS
 #=======
 export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
+export PYTHONPATH="$PYTHONPATH:$HOME/exp/dataset_loaders"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
@@ -308,11 +309,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
 export CPATH=$CPATH:~/.local/include
 export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib
-
-# PYLEARN2
-#==========
-# better pickle compression
-export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'	
 
 # OTHERS
 #========
