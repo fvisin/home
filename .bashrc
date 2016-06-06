@@ -222,6 +222,9 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
         fi
     fi
 
+    # Disable caching
+    CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
+
     # David's tmux hack!
     #alias tmux="krenew -b -t tmux"
     TMUX_EXECUTABLE=`which tmux`
