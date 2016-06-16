@@ -166,26 +166,14 @@ elif [[ `hostname` == *"helios"* ]]; then
     done
 
     # Source group definitions
-    if [ -f /rap/jvb-000-aa/local_v3/.local.bashrc ]; then
-       . /rap/jvb-000-aa/local_v3/.local.bashrc
+    if [ -f /rap/jvb-000-aa/stack/.bashrc ]; then
+       . /rap/jvb-000-aa/stack/.bashrc
     else
        echo "No config available. Please report this."
     fi
 
-    # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
-    # connecting with ssh the local TMPDIR will be set in some cases.
-    export TMPDIR=/Tmp/visin
-
     # User specific environment and startup programs
     export PATH=$PATH:$HOME/bin
-    #export PATH=/software-gpu/cuda/7.0.28/bin:$PATH
-    #export LD_LIBRARY_PATH=/software-gpu/cuda/7.0.28/lib:$LD_LIBRARY_PATH
-    export CULA_ROOT="./cula17"
-    export CULA_INC_PATH="$CULA_ROOT/include"
-    export CULA_LIB_PATH_32="$CULA_ROOT/lib"
-    export CULA_LIB_PATH_64="$CULA_ROOT/lib64"
-    export LD_LIBRARY_PATH=$CULA_LIB_PATH_64:$LD_LIBRARY_PATH
-    source ~/load_modules.sh
 
     # LC
     export LC_CTYPE=en_CA.UTF-8
@@ -301,13 +289,13 @@ unset TEXINPUTS
 
 # PATHS
 #=======
-export PATH="$HOME/.local/bin/:$HOME/exp/jobman/bin:"$PATH
+export PATH="$HOME/.local/bin/:"$PATH
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
 # THEANO AND PYLEARN2
 #=====================
-export THEANO_FLAGS=$BLAS_FLAG
+# export THEANO_FLAGS=$BLAS_FLAG
 # export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
@@ -316,11 +304,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
 export CPATH=$CPATH:~/.local/include
 export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib
-
-# PYLEARN2
-#==========
-# better pickle compression
-export PYLEARN2_PICKLE_PROTOCOL='pickle.HIGHEST_PROTOCOL'	
 
 # OTHERS
 #========
