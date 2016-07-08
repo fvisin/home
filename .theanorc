@@ -33,4 +33,4 @@ print_test_value = True
 
 [lib]
 # Faster CUDA memory allocator
-cnmem = 0.9
+# cnmem = 0.9

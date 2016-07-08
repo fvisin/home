@@ -201,6 +201,10 @@ wiRouter_KeyRec_1.1.2/
 .psql_history
 graphical_models
 *.jpg
+*.png
+*.gif
+*.tiff
+*.tgz
 *.mat
 *.zip
 *.gz

@@ -53,15 +53,16 @@ disk_usage() {
     du -h $1 2> >(grep -v '^du: cannot \(access\|read\)' >&2) | grep '[0-9\.]\+G' | sort -rn
 }
 
+# who is using gpus
+gpu_who() {
+    for i in `nvidia-smi -q -d PIDS | grep ID | cut -d ":" -f2`; do ps -u -p "$i"; done
+}
+
 # rsync options
 alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-links "
 
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
-
-# For some reason with this configuration and set -g default-terminal "xterm" 
-# I can finally see the right colors in tmux
-alias tmux="TERM=xterm-256color tmux"
 
 # Quick set THEANO_FLAGS
 CPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu,floatX=float32$BLAS_FLAG; }
@@ -69,20 +70,24 @@ CPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu0,floatX=float32$BLAS
 CPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu1,floatX=float32$BLAS_FLAG; }
 CPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cpu2,floatX=float32$BLAS_FLAG; }
 GPU(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU4(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU6(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu6,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU7(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu7,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU8(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu8,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
-GPU0SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32$BLAS_FLAG; }
-GPU1SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32$BLAS_FLAG; }
-GPU2SLOW(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32$BLAS_FLAG; }
+GPU0FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU1FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU2FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU3FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU4FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU5FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU6FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu6,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU7FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu7,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU8FAST(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu8,floatX=float32,scan.allow_gc=False$BLAS_FLAG; }
+GPU0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu0,floatX=float32$BLAS_FLAG; }
+GPU1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu1,floatX=float32$BLAS_FLAG; }
+GPU2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu2,floatX=float32$BLAS_FLAG; }
+GPU3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu3,floatX=float32$BLAS_FLAG; }
+GPU4(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu4,floatX=float32$BLAS_FLAG; }
+GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32$BLAS_FLAG; }
 CUDA0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda0,floatX=float16$BLAS_FLAG; }
 PROFILE(){ export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS="$THEANO_FLAGS_INIT",proﬁle_memory=True,profile=True,$THEANO_FLAGS; }
+PL(){ export THEANO_FLAGS="$THEANO_FLAGS",dnn.conv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once,optimizer_excluding=local_softmax_dnn_grad; }
 
 # Frameworks update
 # ==================
@@ -188,22 +193,20 @@ upconda() {
 BL() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/blocks"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
+    # export PYTHONPATH="$HOME/.miniconda/envs/blocks/lib/python2.7/site-packages/:$PYTHONPATH"
     source activate blocks
 }
 AR() {
     export VIRTUAL_ENV="$HOME/.miniconda/envs/arctic"
     export PATH="$HOME/.miniconda/bin:$PATH"
-    export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
-    export PYTHONPATH=$PYTHONPATH:"$HOME/exp/jobman"
+    # export PYTHONPATH="$HOME/.miniconda/envs/arctic/lib/python2.7/site-packages/:$PYTHONPATH"
     source activate arctic
 }
 TH() {
     echo "Resetting THEANO_FLAGS, PYTHONPATH and PATH ..."
     CLR
     export PATH=$PATH:"/data/lisa/exp/visin/theano/theano/bin"
-    export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
+    # export PYTHONPATH=$PYTHONPATH:"/data/lisa/exp/visin/theano/theano/"
 }
 CLR() {
     if [ ! -z $CONDA_DEFAULT_ENV ]; then

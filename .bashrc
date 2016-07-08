@@ -74,7 +74,7 @@ esac
 # #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
  
-export CUDNN=4
+# export CUDNN=5
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -89,6 +89,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+# For some reason with this configuration and set -g default-terminal "xterm" 
+# I can finally see the right colors in tmux
+alias tmux="TERM=xterm-256color tmux"
 
 # Enable 256 color capabilities for appropriate terminals
 
@@ -116,7 +119,7 @@ fi
 # fi
 # unset local256
 eval `dircolors ~/.dircolors`
-export $(dbus-launch)
+# export $(dbus-launch)
 
 ################################### LAPTOP ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
@@ -217,7 +220,11 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
         fi
     fi
 
+    # Disable caching
+    CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
+
     # David's tmux hack!
+    #alias tmux="krenew -b -t tmux"
     TMUX_EXECUTABLE=`which tmux`
     function tmux() {
         if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
@@ -251,7 +258,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
 
     # Set cache to be local
-    export XDG_CACHE_HOME='/Tmp/visin'
+    # export XDG_CACHE_HOME='/Tmp/visin'
 
     # Set browser for ipython notebook
     # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
@@ -280,22 +287,19 @@ fi
 # Ctrl-D
 IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 
-# export BIBINPUTS=:$HOME/articles/bib:
-# export BSTINPUTS=:$HOME/articles/bst:
-# export TEXINPUTS=:$HOME/articles/sty:
-unset BIBINPUTS
-unset BSTINPUTS
-unset TEXINPUTS
+# export BIBINPUTS=.:$HOME/articles/bib:
+# export BSTINPUTS=.:$HOME/articles/bst:
+# export TEXINPUTS=.:$HOME/articles/sty:
 
 # PATHS
 #=======
-export PATH="$HOME/.local/bin/:"$PATH
+export PYTHONPATH="$PYTHONPATH:$HOME/exp/dataset_loaders"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH_INIT="$PATH"
 
 # THEANO AND PYLEARN2
 #=====================
-# export THEANO_FLAGS=$BLAS_FLAG
+export THEANO_FLAGS=$BLAS_FLAG
 # export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
