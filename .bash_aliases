@@ -88,6 +88,7 @@ GPU5(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=gpu5,floatX=float32$BLAS
 CUDA0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda0,floatX=float16$BLAS_FLAG; }
 PROFILE(){ export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS="$THEANO_FLAGS_INIT",proﬁle_memory=True,profile=True,$THEANO_FLAGS; }
 PL(){ export THEANO_FLAGS="$THEANO_FLAGS",dnn.conv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once,optimizer_excluding=local_softmax_dnn_grad; }
+TF(){ echo $THEANO_FLAGS; }
 
 # Frameworks update
 # ==================
