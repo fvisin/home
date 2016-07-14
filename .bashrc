@@ -295,6 +295,7 @@ IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 #=======
 export PYTHONPATH="$PYTHONPATH:$HOME/exp/dataset_loaders"
 export PYTHONPATH_INIT="$PYTHONPATH"
+export PATH=$HOME/.local/bin:$PATH
 export PATH_INIT="$PATH"
 
 # THEANO AND PYLEARN2
