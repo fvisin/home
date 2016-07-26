@@ -185,6 +185,7 @@ elif [[ `hostname` == *"helios"* ]]; then
 ################################### LAB #######################################
 elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     ##### Load the lab profile
+    export GPUARRAY=-9997
     if [ -e "~/.profile" ];
       then . ~/.profile
     fi
@@ -276,6 +277,9 @@ if [ -z ${THEANORC+x} ]; then
     export THEANORC=~/.theanorc
 fi
 
+# Tensor flow URL for updates
+export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
+
 # GIT AUTOCOMPLETE
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -294,21 +298,20 @@ IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 # PATHS
 #=======
 export PYTHONPATH="$PYTHONPATH:$HOME/exp/dataset_loaders"
+export PYTHONPATH="$PYTHONPATH:$HOME/exp/pixelVAE_ishaan/"
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH=$HOME/.local/bin:$PATH
 export PATH_INIT="$PATH"
 
-# THEANO AND PYLEARN2
-#=====================
+# THEANO AND LIBGPUARRAY
+#=======================
 export THEANO_FLAGS=$BLAS_FLAG
 # export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib64/
-export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib64/
-export CPATH=$CPATH:~/.local/include
-export LIBRARY_PATH=$LIBRARY_PATH:~/.local/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib/libgpuarray/lib64/:$HOME/.local/lib/libgpuarray/lib
+export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib/libgpuarray/lib64/:$HOME/.local/lib/libgpuarray/lib
+export CPATH=$CPATH:$HOME/.local/lib/libgpuarray/include
 
 # OTHERS
 #========
