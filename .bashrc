@@ -185,7 +185,7 @@ elif [[ `hostname` == *"helios"* ]]; then
 ################################### LAB #######################################
 elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     ##### Load the lab profile
-    export GPUARRAY=-9997
+    export GPUARRAY=none
     if [ -e "~/.profile" ];
       then . ~/.profile
     fi
