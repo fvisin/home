@@ -209,3 +209,4 @@ graphical_models
 *.zip
 *.gz
 *.hdf5
+.sudo_as_admin_successful
