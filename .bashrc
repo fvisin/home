@@ -202,7 +202,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
 
     # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
     # connecting with ssh the local TMPDIR will be set in some cases.
-    export TMPDIR=/Tmp/visin
+    # export TMPDIR=/Tmp/visin  # use -S flag instead
 
     # PATHS
     export PYLEARN2_DATA_PATH='/data/lisa/data'
@@ -227,6 +227,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     # David's tmux hack!
     #alias tmux="krenew -b -t tmux"
     TMUX_EXECUTABLE=`which tmux`
+    TMUX_EXECUTABLE="$TMUX_EXECUTABLE -S /Tmp/$USER/tmux-socket"
     function tmux() {
         if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
             CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
