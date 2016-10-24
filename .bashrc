@@ -136,7 +136,7 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     # CUDA
     export PATH=/usr/local/cuda/bin:$PATH
     # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
-    export CUDA_ROOT=/usr/local/cuda/bin
+    export CUDA_ROOT=/usr/local/cuda/
    
     # Set TMP
     export TMP='/tmp'
