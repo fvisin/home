@@ -310,9 +310,9 @@ export THEANO_FLAGS=$BLAS_FLAG
 # export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib/libgpuarray/lib64/:$HOME/.local/lib/libgpuarray/lib
-export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib/libgpuarray/lib64/:$HOME/.local/lib/libgpuarray/lib
-export CPATH=$CPATH:$HOME/.local/lib/libgpuarray/include
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
+export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
+export CPATH=$CPATH:$HOME/.local/include
 
 # OTHERS
 #========
