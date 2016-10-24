@@ -59,7 +59,16 @@ gpu_who() {
 }
 
 # rsync options
-alias rsyncopt="rsync -r -X --partial -z -h --progress --bwlimit=20000 --copy-links "
+alias rsyncopt="rsync -a -X --partial -h --progress --bwlimit=20000 --copy-links "
+alias rsyncopt_nolimit="rsync -a -X --partial -h --progress --copy-links "
+cpdataset() {
+    if [ "$#" -ne 4 ]; then
+        echo "Usage: cpdataset <source_dir> <dest_user> <dest_server> <dest_dir>"
+    else
+        tar czf - $1 | ssh $2@$3 "cd $4 && tar xvzf -"
+    fi
+    }
+export -f cpdataset
 
 # Manage the weird pkscreen routine for lisa lab
 alias frascreen="pkscreen; sleep 5; screen -r; sleep 2"
