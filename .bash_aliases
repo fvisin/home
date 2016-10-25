@@ -63,7 +63,7 @@ alias rsyncopt="rsync -a -X --partial -h --progress --bwlimit=20000 --copy-links
 alias rsyncopt_nolimit="rsync -a -X --partial -h --progress --copy-links "
 cpdataset() {
     if [ "$#" -ne 4 ]; then
-        echo "Usage: cpdataset <source_dir> <dest_user> <dest_server> <dest_dir>"
+        echo "Usage: cpdataset <source_files> <dest_user> <dest_server> <dest_root_dir>"
     else
         tar czf - $1 | ssh $2@$3 "cd $4 && tar xvzf -"
     fi
