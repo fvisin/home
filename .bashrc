@@ -75,6 +75,12 @@ esac
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
  
 # export CUDNN=5
+TEN() {
+    export LIBRARY_PATH=:/Tmp/lisa/os_v5/cudnn_v4:/Tmp/lisa/os_v5/lib:/Tmp/lisa/os_v5/lib64:/usr/local/lib:/usr/lib64/atlas/::/usr/local/cuda/lib/:/usr/local/cuda/lib64/:/usr/local/cuda/lib/:/usr/local/cuda/lib64/:/Tmp/lisa/os_v5/lib32:/u/visin/.local/lib/libgpuarray/lib64/:/u/visin/.local/lib/libgpuarray/lib
+    export LD_LIBRARY_PATH=/Tmp/lisa/os_v5/cudnn_v4:/Tmp/lisa/os_v5/lib:/Tmp/lisa/os_v5/lib64:/usr/local/lib:/usr/lib64/atlas/::/usr/local/cuda/lib/:/usr/local/cuda/lib64/:/usr/local/cuda/lib/:/usr/local/cuda/lib64/:/Tmp/lisa/os_v5/lib32:/u/visin/.local/lib/libgpuarray/lib64/:/u/visin/.local/lib/libgpuarray/lib
+    export CPATH=/Tmp/lisa/os_v5/cudnn_v4:/Tmp/lisa/os_v5/include::/u/visin/.local/lib/libgpuarray/include
+}
+export -f TEN
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
