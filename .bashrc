@@ -204,14 +204,13 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
 
     # Set BLAS_FLAG
     # export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
-    unset BLAS_FLAG
+    # unset BLAS_FLAG
 
     # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
     # connecting with ssh the local TMPDIR will be set in some cases.
     # export TMPDIR=/Tmp/visin  # use -S flag instead
 
     # PATHS
-    export PYLEARN2_DATA_PATH='/data/lisa/data'
     export BLOCKS_DATA_PATH='/data/lisa/data'
     export FUEL_DATA_PATH='/data/lisa/data'
 
@@ -228,7 +227,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
 
     # Disable caching
-    CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
+    export CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
 
     # David's tmux hack!
     #alias tmux="krenew -b -t tmux"
