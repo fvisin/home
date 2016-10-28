@@ -90,8 +90,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # For some reason with this configuration and set -g default-terminal "xterm" 
-# I can finally see the right colors in tmux
-alias tmux="TERM=xterm-256color tmux"
+# I can finally see the right colors in tmux at MILA --> MOVED inside MILA!
+# alias tmux="TERM=xterm-256color tmux"
 
 # Enable 256 color capabilities for appropriate terminals
 
@@ -228,6 +228,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     TMUX_EXECUTABLE=`which tmux`
     TMUX_EXECUTABLE="$TMUX_EXECUTABLE -S /Tmp/$USER/tmux-socket"
     function tmux() {
+        TERM=xterm-256color
         if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
             CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
             NEWTICKET=$(mktemp /tmp/krb5cc_${UID}_tmux_XXXXXXXXXXXXXXX)
