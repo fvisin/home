@@ -31,6 +31,9 @@ alias gff='git merge --ff-only'
 # From http://unix.stackexchange.com/q/15138
 alias sshpw='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 
+# Force 256 colors tmux
+alias tmux="TERM=xterm-256color tmux"
+
 # Quick and dirty installation of packages with pip from GitHub.
 ghpip() {
     if [ $# == 0 ]; then
