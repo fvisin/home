@@ -34,6 +34,18 @@ alias sshpw='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no
 # Force 256 colors tmux
 alias tmux="TERM=xterm-256color tmux"
 
+# Montreal
+lisa() {
+    sshpass -f ~/.lisa ssh -XYC visin@elisa1.iro.umontreal.ca
+}
+alias lisassh=lisa
+lisascp() {
+    sshpass -f ~/.lisa scp -Cr visin@elisa1.iro.umontreal.ca:$1 $2
+}
+lisarsync() {
+    sshpass -f ~/.lisa rsync -a -X --partial -h --progress --copy-links visin@elisa1.iro.umontreal.ca:$1 $2
+}
+
 # Quick and dirty installation of packages with pip from GitHub.
 ghpip() {
     if [ $# == 0 ]; then
