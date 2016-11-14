@@ -14,6 +14,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+# Colourize diff
+command -v colordiff >/dev/null 2>&1 && { alias diff=colordiff; }
+
 # Graphical vim
 if type vimx >/dev/null 2>&1; then 
     alias vim='vimx'
