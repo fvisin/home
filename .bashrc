@@ -223,6 +223,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     export CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
 
     # David's tmux hack!
+    # https://github.com/dwf/dotfiles/blob/4bca935672492f7be054bd1d7b69fe48ac4cb86a/shell/.bashrc.d/site/lisa#L32
     #alias tmux="krenew -b -t tmux"
     TMUX_EXECUTABLE=`which tmux`
     TMUX_EXECUTABLE="$TMUX_EXECUTABLE -S /Tmp/$USER/tmux-socket"
@@ -231,24 +232,26 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
         if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
             CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
             NEWTICKET=$(mktemp /tmp/krb5cc_${UID}_tmux_XXXXXXXXXXXXXXX)
-            echo cp $CREDENTIALS $NEWTICKET
             cp $CREDENTIALS $NEWTICKET
-            echo KRB5CCNAME="FILE:$NEWTICKET" tmux "$@"
-            echo ""
             KRB5CCNAME="FILE:$NEWTICKET" $TMUX_EXECUTABLE "$@"
+            echo cp $CREDENTIALS $NEWTICKET
+            echo KRB5CCNAME="FILE:$NEWTICKET" tmux "$@"
         else
             $TMUX_EXECUTABLE "$@"
         fi
     }
 
     function run_tmux_pkboost() {
-        echo pkboost +d $1
         pkboost +d $1
-        echo export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
         export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
-        echo tmux set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
         $TMUX_EXECUTABLE set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
+        echo pkboost +d $1
+        echo export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
+        echo tmux set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
     }
+
+    export -p tmux
+    export -p run_tmux_pkboost
 
     if [ -n "$TMUX" ]; then
         TMUX_DIR=`dirname \`echo $TMUX |cut -d ',' -f 1\``
