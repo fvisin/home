@@ -146,7 +146,6 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     unset BLAS_FLAG
 
     # PATHS
-    export PYLEARN2_DATA_PATH='/home/francesco/exp/datasets'
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
 
