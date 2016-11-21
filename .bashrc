@@ -317,6 +317,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
 export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
 export CPATH=$CPATH:$HOME/.local/include
 
+# LOCAL CUDNN
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/exp/cudnn/lib64
+export CPATH=$CPATH:~/exp/cudnn/include
+export LIBRARY_PATH=$LIBRARY_PATH:~/exp/cudnn/lib64
+
 # OTHERS
 #========
 export EDITOR=vim
