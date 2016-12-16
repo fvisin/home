@@ -1,4 +1,11 @@
-* clone with `git clone https://github.com/fvisin/home.git`
+* clone with 
+```
+git clone https://github.com/fvisin/home.git
+```
+or
+```
+git clone git@github.com:fvisin/home.git
+```
 
 * `cd home`
 
