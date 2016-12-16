@@ -24,7 +24,7 @@ if [ ! -z $CONDA_DEFAULT_ENV ]; then
 fi
 export PATH=$HOME'/.miniconda/bin':$PATH
 # source module_load if any
-if [ ! -f "module_load.sh" ]; then
+if [ -f "module_load.sh" ]; then
     source module_load.sh
 fi
 conda install -y python mkl pip pil pytables h5py hdf5 cython nose numpy scipy numpydoc matplotlib pydot-ng scikit-learn scikit-image tabulate
