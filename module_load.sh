@@ -26,6 +26,7 @@ module load cuda/7.5.18 cudnn/5.1--cuda--7.5.18
 #export CPATH=$CUDA_INC:$CPATH
 ##export PATH=$PATH:/cineca/prod/compilers/cuda/7.0.28/none/bin/
 export CPATH=$CUDNN_INCLUDE:$CPATH
+export LIBRARY_PATH=$CUDNN_LIB:$LIBRARY_PATH
 export LD_LIBRARY_PATH=$CUDNN_LIB:$LD_LIBRARY_PATH
 
 echo "Loading completed"
