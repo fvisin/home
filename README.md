@@ -3,9 +3,7 @@
   ```
   git clone https://github.com/fvisin/home.git
   ```
-
 or
-
   ```
   git clone git@github.com:fvisin/home.git
   ```
