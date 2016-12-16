@@ -15,8 +15,8 @@ fi
 
 ################## MODULES #####################
 module load profile/advanced
-module load intel/pe-xe-2017--binary
-module load mkl/2017--binary gnu/4.9.2 cmake/3.3.2--bin386
+# module load mkl/2017--binary intel/pe-xe-2017--binary
+module load gnu/4.9.2 cmake/3.3.2--bin386
 # module load python/2.7.9 cython/0.22 numpy/1.9.1--python--2.7.9 scipy/0.15.1--python--2.7.9 -> linked against blas/3.5.0--gnu--4.9.2
 module load cuda/7.5.18 cudnn/5.1--cuda--7.5.18
 
