@@ -13,10 +13,10 @@
 ################################################################################
 
 ################################ DATE AND NAMES ################################
-DATE=`date +%F_%Hh%M`			    # current date and time
-HOUR=`date +%Hh%M`			        # current hour
+DATE=`date +%F_%Hh%M%S`			# current date and time
+HOUR=`date +%Hh%M%S`			# current hour
 FILENAME="$(basename ${0%.*})"		# current's file name without extension
-THEANO_FLAGS=\'compiledir=$HOME/.theano/$FILENAME-$DATE,$THEANO_FLAGS
+THEANO_FLAGS=\'compiledir=$HOME/.theano/$FILENAME-$DATE,floatX=float32,device=gpu0
 
 # filenames
 QSUB_SCRIPT="$FILENAME"-$DATE		# name of the script file
@@ -27,24 +27,24 @@ ERRNAME="q_logs/$FILENAME"-$DATE.err
 
 ################################## PARAMETERS ##################################
 
-PRECOMMAND="source \$HOME/module_load.sh; AR; echo $EDITOR"
-WORKDIR="$HOME/exp/arctic/recseg"
-COMMAND="python evaluate_horses" 
+PRECOMMAND="source $HOME/.bashrc; source $HOME/module_load.sh; echo $EDITOR "
+WORKDIR="$HOME/exp/workingdir"			# insert here the directory the your script is located
+COMMAND="python eval_dataset"			# insert here the name of the script you want to run
 
 # job parameters
 # GALILEO max 128 nodes, max 24h, max 120Gb ram (see qstat -q -G)
 # OLD --> debug(2, 00.30.00, always), p_devel(2, 1.00.00, 10-18), parallel(32, 4.00.00, always), np_longpar(9, 8.00.00, 18-10 and weekends)
 WALLTIME="24:00:00"			        # max execution time (max depends on the selected queue)
-NUM_NODES=1				            # number of nodes (max depends on the selected queue)
+NUM_NODES=1				        # number of nodes (max depends on the selected queue)
 NUM_CPU_PER_NODE=1			        # number of cpus (max: 16)
 NUM_GPU_PER_NODE=1			        # number of gpus (max: 2)
-NUM_MPI_TASK_PER_NODE=1	            # number of MPI inter-node parallel tasks per node (should be less than MAX_CPU_PER_NODE)
+NUM_MPI_TASK_PER_NODE=1				# number of MPI inter-node parallel tasks per node (should be less than MAX_CPU_PER_NODE)
 RAM_PER_NODE="14GB"			        # available ram (on Eurora should be either 1-14GB or 17-30 GB)
 QUEUE="route"
 MERGE_OUT_ERR=1				        # set to 1 to merge std-err and std-out
 EMAIL_EVENT="bae"			        # specify email notification (a=aborted,b=begin,e=end,n=no_mail)
-EMAIL_ADDR="fvisin@gmail.com"	    # email address
-ACC_NUM="pMI15_EleBrG"   	        # account number
+EMAIL_ADDR="fvisin@gmail.com"		    	# email address
+ACC_NUM="pMI16_EleBrG"   	        	# account number
 
 ########################## SET PARAMETERS AND RUN JOB ##########################
 
@@ -54,10 +54,10 @@ if [ $# -lt 1 ]; then
     echo "Usage: ./run_job <experiment_number> [<job_id_to_chain_to>]"
     exit
 elif [ $# -eq 2 ]; then
-    COMMAND=$COMMAND$1".py"
+    COMMAND=$COMMAND$1".py -r"
     CHAINTO=$2
 else
-    COMMAND=$COMMAND$1".py"
+    COMMAND=$COMMAND$1".py -r"
 fi
 
 
@@ -102,9 +102,9 @@ echo "#PBS -A $ACC_NUM" >> "$QSUB_SCRIPT"
 
 # write the rest of the script
 echo >> "$QSUB_SCRIPT"
-echo "$PRECOMMAND" >> "$QSUB_SCRIPT"
-echo "cd $WORKDIR" >> "$QSUB_SCRIPT"
-echo "export THEANO_FLAGS=$THEANO_FLAGS; export OMP_NUM_THREADS=$NUM_OPENMP_TASKS; $COMMAND 2>&1 $HOME/q_logs/$FILENAME-$DATE.log" >> "$QSUB_SCRIPT"
+echo "$PRECOMMAND;" >> "$QSUB_SCRIPT"
+echo "cd $WORKDIR;" >> "$QSUB_SCRIPT"
+echo "export THEANO_FLAGS=$THEANO_FLAGS; export OMP_NUM_THREADS=$NUM_OPENMP_TASKS; $COMMAND 2>&1 > $HOME/q_logs/$FILENAME-$DATE.log" >> "$QSUB_SCRIPT"
 
 # call the scheduler
 mkdir -p q_jobs
@@ -113,7 +113,7 @@ if [ -z ${CHAINTO+x} ]; then
     JOB_ID="$(qsub "$QSUB_SCRIPT")"
 else
     echo Chaining job to $CHAINTO ...
-    JOB_ID="$(qsub "-W depend=after:"$CHAINTO "$QSUB_SCRIPT")"
+    JOB_ID="$(qsub "-W depend=afterany:"$CHAINTO "$QSUB_SCRIPT")"
 fi
 echo Done. 
 echo Job id: "${JOB_ID}"
