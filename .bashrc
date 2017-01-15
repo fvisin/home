@@ -190,9 +190,9 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
         
     if [ -e "/opt/lisa/os_v5/.local.bashrc" ];
-      then source "/opt/lisa/os_v5/.local.bashrc"; 
+      then echo "os_v5"; source "/opt/lisa/os_v5/.local.bashrc";
     elif [ -e "/opt/lisa/os_v4/.local.bashrc" ];
-      then source "/opt/lisa/os_v4/.local.bashrc"; 
+      then echo "os_v4"; source "/opt/lisa/os_v4/.local.bashrc";
     fi
 
     # Set BLAS_FLAG
