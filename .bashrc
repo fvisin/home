@@ -142,9 +142,6 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     export TMP='/tmp'
     export TMPDIR='/tmp'
 
-    # Set BLAS_FLAG
-    unset BLAS_FLAG
-
     # PATHS
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
@@ -196,8 +193,7 @@ elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
     fi
 
     # Set BLAS_FLAG
-    # export BLAS_FLAG=',blas.ldflags="-L/usr/lib64/ -lblas"'
-    # unset BLAS_FLAG
+    export BLAS_FLAG=',blas.ldflags="-L/usr/lib/ -lblas"'
 
     # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
     # connecting with ssh the local TMPDIR will be set in some cases.
@@ -403,3 +399,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+# Uncomment to use my own conda env
+# export PATH=$HOME/.miniconda/bin:$PATH
