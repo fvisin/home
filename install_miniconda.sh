@@ -40,18 +40,28 @@ fi
 echo "Add the following ssh key to github and THEN press enter:"
 cat  "$HOME/.ssh/id_rsa.pub"
 read
-mkdir exp
+if [ ! -d "exp" ]; then
+    mkdir exp
+fi
 cd exp
-git clone https://github.com/Theano/Theano.git theano
-pip install -e theano
-git clone git@github.com:fvisin/reseg_private.git reseg
-git clone https://github.com/Lasagne/Lasagne.git lasagne
-pip install -e lasagne
-git clone --recursive git@github.com:fvisin/dataset_loaders.git
-echo "WARNING !!!" 
-echo
-echo "Adding dataset_loaders to PYTHONPATH. Check your ~/.bashrc afterwards"
-echo 'export PYTHONPATH=$PYTHONPATH:$HOME/exp/dataset_loaders' >> ~/.bashrc
-ln -s $WORK/datasets/ $HOME/exp/dataset_loaders/dataset_loaders/datasets
-cd "$HOME/exp/dataset_loaders/dataset_loaders/images/coco/PythonAPI"
-make all  # make mscoco
+if [ ! -d "theano" ]; then
+    git clone https://github.com/Theano/Theano.git theano
+    pip install -e theano
+fi
+if [ ! -d "reseg" ]; then
+    git clone git@github.com:fvisin/reseg_private.git reseg
+fi
+if [ ! -d "lasagne" ]; then
+    git clone https://github.com/Lasagne/Lasagne.git lasagne
+    pip install -e lasagne
+fi
+if [ ! -d "reseg" ]; then
+    git clone --recursive git@github.com:fvisin/dataset_loaders.git
+    echo "WARNING !!!" 
+    echo
+    echo "Adding dataset_loaders to PYTHONPATH. Check your ~/.bashrc afterwards"
+    echo 'export PYTHONPATH=$PYTHONPATH:$HOME/exp/dataset_loaders' >> ~/.bashrc
+    ln -s $WORK/datasets/ $HOME/exp/dataset_loaders/dataset_loaders/datasets
+    cd "$HOME/exp/dataset_loaders/dataset_loaders/images/coco/PythonAPI"
+    make all  # make mscoco
+fi
