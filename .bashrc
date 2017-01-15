@@ -138,6 +138,11 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
     export CUDA_ROOT=/usr/local/cuda/
    
+    # texlive path
+    export PATH=$PATH:/usr/local/texlive/2016/bin/x86_64-linux
+    export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
+    export MANPATH=/usr/local/texlive/2016/texmf-dist/doc/man
+
     # Set TMP
     export TMP='/tmp'
     export TMPDIR='/tmp'
