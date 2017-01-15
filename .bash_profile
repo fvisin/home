@@ -1,11 +1,10 @@
-# If .bash_profile exists, bash doesn't read .profile
-echo ".bash_profile"
+# If .bash_profile exists, bash doesn't read .profile by default. Make sure it does
 if [[ -f ~/.profile ]]; then
   . ~/.profile
 fi
 
-# If the shell is interactive and .bashrc exists, get the aliases and functions
-if [[ $- == *i* && -f ~/.bashrc ]]; then
+# If .bashrc exists, get the aliases and functions
+if [[ -f ~/.bashrc ]]; then
   . ~/.bashrc
 fi
 
