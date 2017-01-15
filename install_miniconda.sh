@@ -10,6 +10,7 @@ if [ ! -d "$HOME/.miniconda" ]; then
     chmod +x Miniconda-latest-Linux-x86_64.sh
     ./Miniconda-latest-Linux-x86_64.sh
     rm Miniconda-latest-Linux-x86_64.sh
+    echo "****** ATTENTION ******"
     echo "Open a new SSH session and relaunch the script to go on."
     exit
 fi
