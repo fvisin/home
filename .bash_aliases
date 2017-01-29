@@ -48,6 +48,7 @@ lisascp() {
 lisarsync() {
     sshpass -f ~/.lisa rsync -a -X --partial -h --progress --copy-links visin@elisa1.iro.umontreal.ca:$1 $2
 }
+alias squeue='squeue -o "%.6i %.1t %.6q %.7m %.12b %.3C %.3D %.18k %.11L %R"'
 
 # Quick and dirty installation of packages with pip from GitHub.
 ghpip() {
