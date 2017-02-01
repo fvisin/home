@@ -27,7 +27,7 @@ ERRNAME="q_logs/$FILENAME"-$DATE.err
 
 ################################## PARAMETERS ##################################
 
-PRECOMMAND="source $HOME/.bashrc; source $HOME/module_load.sh; echo $EDITOR "
+PRECOMMAND="source $HOME/.bashrc; source $HOME/module_load.sh"
 WORKDIR="$HOME/exp/workingdir"			# insert here the directory the your script is located
 COMMAND="python eval_dataset"			# insert here the name of the script you want to run
 
@@ -78,8 +78,6 @@ else
 fi
 
 ###################
-export OMP_NUM_THREADS=$NUM_CPU_PER_NODE
-
 mkdir -p q_logs
 mkdir -p q_scripts
 
@@ -102,9 +100,12 @@ echo "#PBS -A $ACC_NUM" >> "$QSUB_SCRIPT"
 
 # write the rest of the script
 echo >> "$QSUB_SCRIPT"
-echo "$PRECOMMAND;" >> "$QSUB_SCRIPT"
-echo "cd $WORKDIR;" >> "$QSUB_SCRIPT"
-echo "export THEANO_FLAGS=$THEANO_FLAGS; export OMP_NUM_THREADS=$NUM_OPENMP_TASKS; $COMMAND 2>&1 > $HOME/q_logs/$FILENAME-$DATE.log" >> "$QSUB_SCRIPT"
+echo "$PRECOMMAND" >> "$QSUB_SCRIPT"
+echo "cd $WORKDIR" >> "$QSUB_SCRIPT"
+echo "export OMP_NUM_THREADS=$NUM_CPU_PER_NODE" >> "$QSUB_SCRIPT"
+echo "export PYTHONUNBUFFERED=1" >> "$QSUB_SCRIPT"
+echo "export THEANO_FLAGS=$THEANO_FLAGS" >> "$QSUB_SCRIPT"
+echo "$COMMAND 2>&1 > $HOME/q_logs/$FILENAME-$DATE.log" >> "$QSUB_SCRIPT"
 
 # call the scheduler
 mkdir -p q_jobs
