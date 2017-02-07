@@ -333,6 +333,11 @@ fi
 # if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then TERM=gnome-256color; fi
 # See http://unix.stackexchange.com/questions/105926/how-to-include-commands-in-bashs-ps1-without-breaking-line-length-calculation
 
+# You can get a list of colors with:
+# for i in {0..255}; do
+#     printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
+# done
+
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
