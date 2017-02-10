@@ -320,6 +320,7 @@ export LIBRARY_PATH=$LIBRARY_PATH:~/exp/cudnn/lib64
 # Commands to be executed before running jobs
 export SMARTDISPATCH_SETUP_COMMANDS='export OMP_NUM_THREADS=1;export PYTHONUNBUFFERED=1;export THEANO_FLAGS=floatX=float32,device=cuda,openmp=false;'
 export SMARTDISPATCH_EMAIL=''
+export SMARTDISPATCH_RAM='17GB'
 
 # OTHERS
 #========
