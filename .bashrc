@@ -317,6 +317,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/exp/cudnn/lib64
 export CPATH=$CPATH:~/exp/cudnn/include
 export LIBRARY_PATH=$LIBRARY_PATH:~/exp/cudnn/lib64
 
+# Commands to be executed before running jobs
+export SMARTDISPATCH_SETUP_COMMANDS='export OMP_NUM_THREADS=1;export PYTHONUNBUFFERED=1;export THEANO_FLAGS=floatX=float32,device=cuda,openmp=false;'
+
 # OTHERS
 #========
 export EDITOR=vim
