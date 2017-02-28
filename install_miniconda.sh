@@ -28,7 +28,7 @@ export PATH=$HOME'/.miniconda/bin':$PATH
 if [ -f "module_load.sh" ]; then
     source module_load.sh
 fi
-conda install -y python mkl pip pil pytables h5py hdf5 cython nose numpy scipy numpydoc matplotlib pydot-ng scikit-learn scikit-image tabulate
+conda install -y python mkl pip pil pytables h5py hdf5 cython nose numpy scipy numpydoc matplotlib pydot-ng scikit-learn scikit-image seaborn tabulate
 # pip install --upgrade ipython==4.1.0 ipdb==0.8.1 retrying progressbar2 pycuda
 pip install --upgrade ipython==5.1.0 ipdb retrying progressbar2 pycuda pep257
 
