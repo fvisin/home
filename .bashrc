@@ -156,10 +156,10 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     export LC_ALL=it_IT.UTF-8
 
 ################################### HELIOS ####################################
-elif [[ `hostname` == *"helios"* ]]; then
+elif [[ `dnsdomainname` == "helios" ]]; then
     # Source global definitions
     if [ -f /etc/bashrc ]; then
-       . /etc/bashrc
+        . /etc/bashrc
     fi
 
     # CLUMEQ
@@ -178,6 +178,13 @@ elif [[ `hostname` == *"helios"* ]]; then
 
     # User specific environment and startup programs
     export PATH=$PATH:$HOME/bin
+    #source /rap/jvb-000-aa/local_v3/.local.bashrc
+    # Source group definitions
+    if [ -f /rap/jvb-000-aa/stack/.bashrc ]; then
+        . /rap/jvb-000-aa/stack/.bashrc
+    else
+        echo "No config available. Please report this."
+    fi
 
     # LC
     export LC_CTYPE=en_CA.UTF-8
