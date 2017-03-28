@@ -134,12 +134,12 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     fi
  
     # CUDA
-    export PATH=/usr/local/cuda/bin:$PATH
+    export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
     # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
     export CUDA_ROOT=/usr/local/cuda/
-   
+
     # texlive path
-    export PATH=$PATH:/usr/local/texlive/2016/bin/x86_64-linux
+    export PATH=/usr/local/texlive/2016/bin/x86_64-linux${PATH:+:${PATH}}
     export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
     export MANPATH=/usr/local/texlive/2016/texmf-dist/doc/man
 
@@ -177,7 +177,7 @@ elif [[ `dnsdomainname` == "helios" ]]; then
     fi
 
     # User specific environment and startup programs
-    export PATH=$PATH:$HOME/bin
+    export PATH=$HOME/bin${PATH:+:${PATH}}
     #source /rap/jvb-000-aa/local_v3/.local.bashrc
     # Source group definitions
     if [ -f /rap/jvb-000-aa/stack/.bashrc ]; then
@@ -309,18 +309,17 @@ IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 # PATHS
 #=======
 export PYTHONPATH_INIT="$PYTHONPATH"
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:${PATH:+:${PATH}}
 export PATH_INIT="$PATH"
 
 # THEANO AND LIBGPUARRAY
 #=======================
 export THEANO_FLAGS=$BLAS_FLAG
-# export THEANO_FLAGS_INIT="$THEANO_FLAGS",dnn.conv.algo_fwd=time_once,dnnv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once
 export THEANO_FLAGS_INIT="$THEANO_FLAGS"
 # libgpuarray
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
-export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib64/:$HOME/.local/lib
-export CPATH=$CPATH:$HOME/.local/include
+export LD_LIBRARY_PATH=$HOME/.local/lib64/:$HOME/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LIBRARY_PATH=$HOME/.local/lib64/:$HOME/.local/lib${LIBRARY_PATH:+:${LIBRARY_PATH}}
+export CPATH=$HOME/.local/include${CPATH:+:${CPATH}}
 
 # OTHERS
 #========
