@@ -39,7 +39,7 @@ alias tmux="TERM=xterm-256color tmux"
 
 # Montreal
 lisa() {
-    sshpass -f ~/.lisa ssh -XYC visin@elisa1.iro.umontreal.ca
+    sshpass -f ~/.lisa ssh -YC visin@elisa1.iro.umontreal.ca
 }
 alias lisassh=lisa
 lisascp() {
