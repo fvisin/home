@@ -154,8 +154,8 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
 
     # LC
-    export LC_CTYPE=it_IT.UTF-8
-    export LC_ALL=it_IT.UTF-8
+    export LC_CTYPE=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
 
 ################################### HELIOS ####################################
 elif [[ `dnsdomainname` == "helios" ]]; then
