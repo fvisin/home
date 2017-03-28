@@ -122,7 +122,7 @@ eval `dircolors ~/.dircolors`
 # export $(dbus-launch)
 
 ################################### LAPTOP ####################################
-if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' ]]; then
+if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` == 'AITeam' ]]; then
 
     # enable bash completion in interactive shells
     if ! shopt -oq posix; then
