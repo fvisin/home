@@ -290,9 +290,6 @@ if [ -z ${THEANORC+x} ]; then
     export THEANORC=~/.theanorc
 fi
 
-# Tensor flow URL for updates
-export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
-
 # GIT AUTOCOMPLETE
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
