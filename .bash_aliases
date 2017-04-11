@@ -128,6 +128,12 @@ TEN() {
     export CPATH=/Tmp/lisa/os_v5/cudnn_v4:/Tmp/lisa/os_v5/include::/u/visin/.local/lib/libgpuarray/include
 }
 
+# Displays
+D0(){ export DISPLAY=localhost:0.0; }
+D10(){ export DISPLAY=localhost:10.0; }
+D11(){ export DISPLAY=localhost:11.0; }
+D12(){ export DISPLAY=localhost:12.0; }
+
 # Frameworks update
 # ==================
 GITUSER='fvisin'
