@@ -118,6 +118,7 @@ CUDA0(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda0,floatX=float32; }
 CUDA1(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda1,floatX=float32; }
 CUDA2(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda2,floatX=float32; }
 CUDA3(){ export THEANO_FLAGS="$THEANO_FLAGS_INIT",device=cuda3,floatX=float32; }
+FC(){ export THEANO_FLAGS=compiler=fast_compile${THEANO_FLAGS:+,${THEANO_FLAGS}}; }
 PROFILE(){ export CUDA_LAUNCH_BLOCKING=1;export THEANO_FLAGS="$THEANO_FLAGS_INIT",proﬁle_memory=True,profile=True,$THEANO_FLAGS; }
 PL(){ export THEANO_FLAGS="$THEANO_FLAGS",dnn.conv.algo_bwd_filter=time_once,dnn.conv.algo_bwd_data=time_once,optimizer_excluding=local_softmax_dnn_grad; }
 TF(){ echo $THEANO_FLAGS; }
