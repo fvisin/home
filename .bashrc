@@ -143,7 +143,6 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
     # texlive path
     export PATH=/usr/local/texlive/2016/bin/x86_64-linux${PATH:+:${PATH}}
     export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
-    export MANPATH=/usr/local/texlive/2016/texmf-dist/doc/man
 
     # Set TMP
     export TMP='/tmp'
