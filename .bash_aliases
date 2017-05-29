@@ -61,7 +61,13 @@ python() {
 
 # Montreal
 lisa() {
-    sshpass -f ~/.lisa ssh -YC visin@elisa1.iro.umontreal.ca
+    if [ $# == 0 ]; then
+        sshpass -f ~/.lisa ssh -YC visin@elisa1
+    elif [ $# == 1 ]; then
+        sshpass -f ~/.lisa ssh -YC -L $1:localhost:$1 visin@elisa1
+    else
+        echo "usage: sshlisa [port]"
+    fi
 }
 alias lisassh=lisa
 lisascp() {
