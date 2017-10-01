@@ -23,3 +23,14 @@ LC_ADDRESS="en_EN.UTF-8"
 LC_TELEPHONE="en_EN.UTF-8"
 LC_MEASUREMENT="en_EN.UTF-8"
 LC_IDENTIFICATION="en_EN.UTF-8"
+
+# Global stuff
+export PATH=$HOME/bin:$PATH
+export EDITOR=vim
+
+# Homebrew stuff
+export PATH=$HOME/homebrew/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+
+# Disable homebrew stats
+export HOMEBREW_NO_ANALYTICS=1

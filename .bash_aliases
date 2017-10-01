@@ -1,5 +1,12 @@
+# Load GNU aliases
+LATEST_COREUTILS_DIR=$(ls -td -- $HOME/homebrew/Cellar/coreutils/*/ | head -n 1)
+if [ -d "$LATEST_COREUTILS_DIR" ]; then
+    export PATH=$PATH:$LATEST_COREUTILS_DIR/bin
+    alias ls='gls --color=auto'
+    alias dircolors=gdircolors
+fi
+
 # ls aliases
-alias ls='ls --color=auto'
 alias ll='ls -l'
 alias lla='ls -alF'
 alias lh='ls -sh'
@@ -17,6 +24,8 @@ command -v colordiff >/dev/null 2>&1 && { alias diff=colordiff; }
 # Graphical vim
 if type vimx >/dev/null 2>&1; then 
     alias vim='vimx'
+elif type mvim >/dev/null 2>&1; then 
+    alias vim='mvim -v'
 fi
 
 # Git fast-forward merge
