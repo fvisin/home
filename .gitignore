@@ -238,3 +238,4 @@ graphical_models
 *.hdf5
 *.log
 *.pdf
+.DS_Store
