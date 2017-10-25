@@ -43,20 +43,29 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-eval `dircolors ~/.dircolors`
+# Enable 256 color capabilities if dircolors exist
+hash dircolors 2>/dev/null && eval 'dircolors $HOME/.dircolors'
 
-################################### LAPTOP ####################################
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+ 
+# GIT AUTOCOMPLETE
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+fi
+
+################################### LAPTOP/Server poli ####################################
 if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` == 'AITeam' ]]; then
 
-    # enable bash completion in interactive shells
-    if ! shopt -oq posix; then
-      if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-      elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-      fi
-    fi
- 
     # CUDA
     export LD_LIBRARY_PATH=/usr/local/cuda/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
     export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/cuda/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
@@ -68,17 +77,9 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
     export PATH=/usr/local/texlive/2016/bin/x86_64-linux${PATH:+:${PATH}}
     export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
 
-    # Set TMP
-    export TMP='/tmp'
-    export TMPDIR='/tmp'
-
     # PATHS
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
-
-    # LC
-    export LC_CTYPE=en_US.UTF-8
-    export LC_ALL=en_US.UTF-8
 
 ################################### HELIOS ####################################
 elif [[ `dnsdomainname` == "helios" ]]; then
@@ -212,13 +213,6 @@ fi
 if [ -z ${THEANORC+x} ]; then
     export THEANORC=~/.theanorc
 fi
-
-# GIT AUTOCOMPLETE
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
 fi
 
 # Ctrl-D
@@ -229,6 +223,10 @@ IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 export PYTHONPATH_INIT="$PYTHONPATH"
 export PATH=$HOME/.local/bin:${PATH:+:${PATH}}
 export PATH_INIT="$PATH"
+
+# Set TMP
+export TMP='/tmp'
+export TMPDIR='/tmp'
 
 # THEANO AND LIBGPUARRAY
 #=======================
