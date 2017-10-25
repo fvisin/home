@@ -27,3 +27,9 @@
 	cmd = kdiff3 --L1 \"$MERGED (Base)\" --L2 \"$MERGED (Local)\" --L3 \"$MERGED (Remote)\" -o \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 [merge]
 	tool = kdiff3
+
+# Ignore lines with #gitignore
+[filter "gitignore"]
+	clean = "sed '/# gitignore$/'d"
+[filter "gitignore"]
+	smudge = cat
