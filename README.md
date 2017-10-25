@@ -16,3 +16,8 @@ or
   ```
 
 * remove home with: `cd ..; rm -r ~/home`
+
+## SOLARIZED GNOME-TERMINAL
+From: https://xorcode.com/code/2011/04/11/solarized-vim-eclipse-ubuntu.html
+Run `. .solarize_gnome_terminal.sh` to setup your gnome-terminal with the
+solarized palette.
