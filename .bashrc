@@ -20,16 +20,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# If this is an gnome-terminal set the title to user@host:dir
-# For konsole, just modify the preferences to print %w
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1" # gnome
-    ;;
-*)
-    ;;
-esac
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -188,6 +178,8 @@ fi
 PS1='\[${GREEN}\]┌─────── \u@\h\[${BLUE}\] [\w]\[${YELLOW}\]$(__git_ps1 " (%s)")\n\[${GREEN}\]└─ λ \[${RESET}\]'
 # VIRTUAL_ENV_DISABLE_PROMPT=1 source ~/Enthought/Canopy_64bit/User/bin/activate
 
+# If this is an gnome-terminal set the title to user@host:dir
+# For konsole, just modify the preferences to print %w
 # Set an xterm title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
