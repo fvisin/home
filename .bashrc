@@ -81,6 +81,15 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
     export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
     export FUEL_DATA_PATH='/home/francesco/exp/datasets'
 
+################################### Mac ####################################
+elif [[ `uname -s` == 'darwin' ]]; then
+    # Homebrew stuff
+    export PATH=$HOME/.homebrew/bin:$PATH
+    export LD_LIBRARY_PATH=$HOME/.homebrew/lib:$LD_LIBRARY_PATH
+
+    # Disable homebrew stats
+    export HOMEBREW_NO_ANALYTICS=1
+
 ################################### HELIOS ####################################
 elif [[ `dnsdomainname` == "helios" ]]; then
     # Source global definitions
