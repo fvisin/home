@@ -78,10 +78,6 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
     export PATH=/usr/local/texlive/2016/bin/x86_64-linux${PATH:+:${PATH}}
     export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
 
-    # PATHS
-    export BLOCKS_DATA_PATH='/home/francesco/exp/datasets'
-    export FUEL_DATA_PATH='/home/francesco/exp/datasets'
-
 ################################### Mac ####################################
 elif [[ `uname -s` == 'darwin' ]]; then
     # Homebrew stuff
@@ -91,138 +87,6 @@ elif [[ `uname -s` == 'darwin' ]]; then
     # Disable homebrew stats
     export HOMEBREW_NO_ANALYTICS=1
 
-################################### HELIOS ####################################
-elif [[ `dnsdomainname` == "helios" ]]; then
-    # Source global definitions
-    if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-    fi
-
-    # CLUMEQ
-    for i in /clumeq/etc/profile.d/*.sh ; do
-       if [ -r "$i" ]; then
-           . $i
-       fi
-    done
-
-    # Source group definitions
-    if [ -f /rap/jvb-000-aa/stack/.bashrc ]; then
-       . /rap/jvb-000-aa/stack/.bashrc
-    else
-       echo "No config available. Please report this."
-    fi
-
-    # User specific environment and startup programs
-    export PATH=$HOME/bin${PATH:+:${PATH}}
-    #source /rap/jvb-000-aa/local_v3/.local.bashrc
-    # Source group definitions
-    if [ -f /rap/jvb-000-aa/stack/.bashrc ]; then
-        . /rap/jvb-000-aa/stack/.bashrc
-    else
-        echo "No config available. Please report this."
-    fi
-
-    # LC
-    export LC_CTYPE=en_CA.UTF-8
-    export LC_ALL=en_CA.UTF-8
-
-################################### LAB #######################################
-elif [[ `hostname -d` == 'iro.umontreal.ca' ]] ; then
-    ##### Load the lab profile
-    export GPUARRAY=none
-    if [ -e "~/.profile" ];
-      then . ~/.profile
-    fi
-        
-    if [ -e "/opt/lisa/os_v5/.local.bashrc" ];
-      then echo "os_v5"; source "/opt/lisa/os_v5/.local.bashrc";
-    elif [ -e "/opt/lisa/os_v4/.local.bashrc" ];
-      then echo "os_v4"; source "/opt/lisa/os_v4/.local.bashrc";
-    fi
-
-    # Set BLAS_FLAG
-    export BLAS_FLAG=',blas.ldflags="-L/usr/lib/ -lblas"'
-
-    # tmux stores open sessions in TMPDIR. Has to be explicitly set or when 
-    # connecting with ssh the local TMPDIR will be set in some cases.
-    # export TMPDIR=/Tmp/visin  # use -S flag instead
-
-    # PATHS
-    export BLOCKS_DATA_PATH='/data/lisa/data'
-    export FUEL_DATA_PATH='/data/lisa/data'
-
-    # I'd rather not use the PYTHONPATH, opting for my own conda installation.
-    unset PYTHONPATH
-    
-    # Fred's up-to-date Firefox install. Use the directory that appears
-    # alphabetically last, which hopefully should always be the most recent.
-    if [ -d /opt/lisa/os ]; then
-        FIREFOX_BIN=`/bin/ls -d /opt/lisa/os/firefox-* | tail -n 1`/bin
-        if [ -e $FIREFOX_BIN ] ; then
-            front_of_path $FIREFOX_BIN
-        fi
-    fi
-
-    # Disable caching
-    export CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
-
-    # David's tmux hack!
-    # https://github.com/dwf/dotfiles/blob/4bca935672492f7be054bd1d7b69fe48ac4cb86a/shell/.bashrc.d/site/lisa#L32
-    #alias tmux="krenew -b -t tmux"
-    TMUX_EXECUTABLE=`which tmux`
-    TMUX_EXECUTABLE="$TMUX_EXECUTABLE -S /Tmp/$USER/tmux-socket"
-    function tmux() {
-        TERM=xterm-256color
-        if [ $# -eq 0 ] || [ $1 == "new-session" ]; then
-            CREDENTIALS=$(echo $KRB5CCNAME |cut -d':' -f 2)
-            NEWTICKET=$(mktemp /tmp/krb5cc_${UID}_tmux_XXXXXXXXXXXXXXX)
-            cp $CREDENTIALS $NEWTICKET
-            KRB5CCNAME="FILE:$NEWTICKET" $TMUX_EXECUTABLE "$@"
-            echo cp $CREDENTIALS $NEWTICKET
-            echo KRB5CCNAME="FILE:$NEWTICKET" tmux "$@"
-        else
-            $TMUX_EXECUTABLE "$@"
-        fi
-    }
-
-    function run_tmux_pkboost() {
-        pkboost +d $1
-        export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
-        $TMUX_EXECUTABLE set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
-        echo pkboost +d $1
-        echo export TMUX_PKBOOST=$(pgrep -f "pkboost \+d $1")
-        echo tmux set-environment -g TMUX_PKBOOST $TMUX_PKBOOST
-    }
-
-    export -p tmux
-    export -p run_tmux_pkboost
-
-    if [ -n "$TMUX" ]; then
-        TMUX_DIR=`dirname \`echo $TMUX |cut -d ',' -f 1\``
-        TMUX_PID=`echo $TMUX |cut -d ',' -f 2`
-        if [ -z "$TMUX_PKBOOST" ]; then
-            run_tmux_pkboost $TMUX_PID
-        fi
-    fi
-
-    # Set cache to be local
-    # export XDG_CACHE_HOME='/Tmp/visin'
-
-    # Set browser for ipython notebook
-    # export BROWSER='/opt/lisa/os/firefox-39.0.x86_64/firefox-bin'
-    export BROWSER=$FIREFOX_BIN
-
-    # LC
-    export LC_CTYPE=en_CA.UTF-8
-    export LC_ALL=en_CA.UTF-8
-
-fi
-
-################################# COMMON POST #################################
-
-if [ -z ${THEANORC+x} ]; then
-    export THEANORC=~/.theanorc
-fi
 fi
 
 # Ctrl-D
@@ -237,15 +101,6 @@ export PATH_INIT="$PATH"
 # Set TMP
 export TMP='/tmp'
 export TMPDIR='/tmp'
-
-# THEANO AND LIBGPUARRAY
-#=======================
-export THEANO_FLAGS=$BLAS_FLAG
-export THEANO_FLAGS_INIT="$THEANO_FLAGS"
-# libgpuarray
-export LD_LIBRARY_PATH=$HOME/.local/lib64/:$HOME/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export LIBRARY_PATH=$HOME/.local/lib64/:$HOME/.local/lib${LIBRARY_PATH:+:${LIBRARY_PATH}}
-export CPATH=$HOME/.local/include${CPATH:+:${CPATH}}
 
 # OTHERS
 #========
