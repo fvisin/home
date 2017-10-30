@@ -69,7 +69,7 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
     export INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info
 
 ################################### Mac ####################################
-elif [[ `uname -s` == 'darwin' ]]; then
+elif [[ `uname -s` == 'Darwin' ]]; then
     # Homebrew stuff
     export PATH=$HOME/.homebrew/bin:$PATH
     export LD_LIBRARY_PATH=$HOME/.homebrew/lib:$LD_LIBRARY_PATH
