@@ -1,14 +1,21 @@
 # Load GNU aliases for mac
-if [ -d "$HOME/.homebrew" ]; then
-  LATEST_COREUTILS_DIR=$(ls -td -- $HOME/.homebrew/Cellar/coreutils/*/ | head -n 1)
-fi
-if [[ ! -z ${LATEST_COREUTILS_DIR+x} ]] && [[ -d "$LATEST_COREUTILS_DIR" ]]; then
-    export PATH=$PATH:$LATEST_COREUTILS_DIR/bin
-    alias ls='gls --color=auto'
-    alias dircolors=gdircolors
+# Use homebrew's coreutils if possible or the standard command otherwise
+if [ -d "$HOME/.homebrew/Cellar/coreutils" ]; then
+    LATEST_COREUTILS_DIR=$(ls -td -- $HOME/.homebrew/Cellar/coreutils/*/ | head -n 1)
+    if [[ ! -z ${LATEST_COREUTILS_DIR+x} ]] && [[ -d "$LATEST_COREUTILS_DIR" ]]; then
+        export PATH=$PATH:$LATEST_COREUTILS_DIR/bin
+        alias ls='gls --color=auto'
+        alias dircolors=gdircolors
+    fi
 else
-  alias ls='ls --color=auto'
+    if [[ `uname -s` == 'Darwin' ]]; then
+        alias ls='ls -G'
+    else
+        alias ls='ls --color=auto'
+    fi
 fi
+
+# Set other ls aliases
 alias ll='ls -l'
 alias lla='ls -alF'
 alias lh='ls -sh'
