@@ -76,7 +76,6 @@ elif [[ `uname -s` == 'Darwin' ]]; then
 
     # Disable homebrew stats
     export HOMEBREW_NO_ANALYTICS=1
-
 fi
 
 # Ctrl-D
