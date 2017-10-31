@@ -33,8 +33,10 @@ command -v colordiff >/dev/null 2>&1 && { alias diff=colordiff; }
 # Graphical vim
 if type vimx >/dev/null 2>&1; then 
     alias vim='vimx'
+    export GIT_EDITOR="vimx"
 elif type mvim >/dev/null 2>&1; then 
     alias vim='mvim -v'
+    export GIT_EDITOR="mvim -v"
 fi
 
 # Git fast-forward merge
