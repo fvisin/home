@@ -79,9 +79,6 @@ elif [[ `uname -s` == 'Darwin' ]]; then
     export HOMEBREW_NO_ANALYTICS=1
 fi
 
-# Ctrl-D
-IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
-
 # PATHS
 #=======
 export PYTHONPATH_INIT="$PYTHONPATH"
@@ -95,6 +92,9 @@ export TMPDIR='/tmp'
 # OTHERS
 #========
 export EDITOR=vim
+
+# Ctrl-D
+IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
 
 # autojump
 [[ -s /u/visin/.autojump/etc/profile.d/autojump.sh ]] && source /u/visin/.autojump/etc/profile.d/autojump.sh
