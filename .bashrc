@@ -71,7 +71,8 @@ if [[ `hostname` == 'fraptop' || `hostname` == 'nvidia-robotica' || `hostname` =
 ################################### Mac ####################################
 elif [[ `uname -s` == 'Darwin' ]]; then
     # Homebrew stuff
-    export PATH=$HOME/.homebrew/bin:$PATH
+    export PATH=$HOME/.homebrew/bin:$PATH 
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH  # pip stuff
     export LD_LIBRARY_PATH=$HOME/.homebrew/lib:$LD_LIBRARY_PATH
 
     # Disable homebrew stats
