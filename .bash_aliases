@@ -53,6 +53,8 @@ alias sshpw='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no
 
 # Force 256 colors tmux
 alias tmux="TERM=xterm-256color tmux"
+#alias tmux="tmux -2"  # Force tmux to use 256 colors
+. $HOME/.tmux/set_tmux_config.sh
 
 alias python_no_tcmalloc="/usr/bin/python"
 python() {
