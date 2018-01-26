@@ -1,9 +1,9 @@
 ## SETUP
 * Clone the repository in a temporary directory:
 
-  (HTTPS) `git clone https://github.com/fvisin/home.git ~/home`
+  (HTTPS) `git clone --recursive -j8 https://github.com/fvisin/home.git ~/home`
   
-  (GIT) `git clone git@github.com:fvisin/home.git ~/home`
+  (GIT) `git clone --recursive -j8 git@github.com:fvisin/home.git ~/home`
 
 * Access the temporary directory: `cd ~/home`
 
@@ -13,6 +13,9 @@
   (Mac) `find . -mindepth 1 -maxdepth 1  -execdir mv '{}' .. \;`
   
 * Remove the temporary directory: `cd ; rm -r ~/home`
+
+(Optional)
+* Install tmux plugins: open tmux and use `<prefix> + I` to install the plugins.
 
 ## SOLARIZED GNOME-TERMINAL
 (From: https://xorcode.com/code/2011/04/11/solarized-vim-eclipse-ubuntu.html)
