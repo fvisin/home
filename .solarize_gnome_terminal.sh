@@ -22,7 +22,7 @@ case "$1" in
 		;;
 	*)
 	echo "Usage: solarize [light | dark]"
-	exit
+	return
 	;;
 esac
 
