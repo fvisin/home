@@ -191,3 +191,10 @@ esac
 
 # Uncomment to use my own conda env
 # export PATH=$HOME/.miniconda/bin:$PATH
+
+# History stuff
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000
+export HISTTIMEFORMAT="%F %T "
+shopt -s cmdhist
+shopt -s histappend
