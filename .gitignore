@@ -261,3 +261,4 @@ Public
 Video
 .tmux.conf
 .tmux/plugins
+.fzf*

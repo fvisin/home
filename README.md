@@ -25,6 +25,10 @@ solarized palette.
 
 ---
 
+## Optional steps
+Install fuzzy completion:
+https://github.com/junegunn/fzf#installation
+
 ## Optional steps for MAC
 #### Install homebrew in ~/.homebrew
 ```
